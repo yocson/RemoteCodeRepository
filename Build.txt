@@ -1,0 +1,4 @@
+Build.txt
+========================================
+1. Set solution property nultiple startup projects, GUI and serverprototype
+2. devenv RemoteRepositoryPrototypes.sln /rebuild debug
