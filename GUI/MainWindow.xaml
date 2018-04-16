@@ -18,7 +18,7 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <TabControl Grid.Row="0" Name="tabControl">
+        <TabControl Grid.Row="0" Name="tabControl" SelectionChanged="tabControl_SelectionChanged">
             <TabItem Header="Test">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -76,16 +76,69 @@
             </TabItem>
             <TabItem Header="Check-In">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="30*"/>
-                        <ColumnDefinition Width="73*"/>
-                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="For Project#3 Demo" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Margin="48.5,0,198,0.5"></Label>
-                    <Grid Grid.ColumnSpan="2" Margin="0,24,0,0" Grid.RowSpan="2">
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="73*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="For Project#3 Demo" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Margin="48.5,0,198,0.5"></Label>
+                        <Grid Grid.ColumnSpan="2" Margin="0,24,0,0" Grid.RowSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Grid Grid.Column="1" Margin="10 0 10 10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" FontWeight="Bold" Content="File Information:"></Label>
+                                <Grid Grid.Row="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0" Margin="0 5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Content="Author"></Label>
+                                        <TextBox Grid.Column="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Row="1" Margin="0 5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Content="Description"></Label>
+                                        <TextBox Grid.Column="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Row="2" Margin="0 5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Content="Category"></Label>
+                                        <TextBox Grid.Column="1"></TextBox>
+                                    </Grid>
+                                </Grid>
+                                <Button Grid.Row="2" Name="checkinbtn" Content="Check-In" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click_Checkin"></Button>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -136,48 +189,9 @@
                                 </Border>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Column="1" Margin="10 0 10 10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Label Grid.Row="0" FontWeight="Bold" Content="File Information:"></Label>
-                            <Grid Grid.Row="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"></RowDefinition>
-                                    <RowDefinition Height="auto"></RowDefinition>
-                                    <RowDefinition Height="auto"></RowDefinition>
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Row="0" Margin="0 5">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <Label Grid.Column="0" Content="Author"></Label>
-                                    <TextBox Grid.Column="1"></TextBox>
-                                </Grid>
-                                <Grid Grid.Row="1" Margin="0 5">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <Label Grid.Column="0" Content="Description"></Label>
-                                    <TextBox Grid.Column="1"></TextBox>
-                                </Grid>
-                                <Grid Grid.Row="2" Margin="0 5">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <Label Grid.Column="0" Content="Category"></Label>
-                                    <TextBox Grid.Column="1"></TextBox>
-                                </Grid>
-                            </Grid>
-                            <Button Grid.Row="2" Name="checkinbtn" Content="Check-In" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click_Checkin"></Button>
-                        </Grid>
                     </Grid>
                 </Grid>
+                
             </TabItem>
             <TabItem Header="Check-Out">
                 <Grid>
