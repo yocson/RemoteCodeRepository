@@ -86,6 +86,7 @@ namespace WpfApp1
         private string serverAddr;
         private int serverPort;
         private int clientPort = 8082;
+        private bool testMode = false;
 
         //----< process incoming messages on child thread >----------------
 
@@ -247,7 +248,7 @@ namespace WpfApp1
                 {
                     statusBarText.Text = "Received checkin messages";
                     testbox.Items.Insert(0, "Received checkin message");
-                    Thread.Sleep(1000);
+                    if (testMode) Thread.Sleep(1000);
                 });
             };
             addClientProc("checkIn", checkIn);
@@ -262,7 +263,7 @@ namespace WpfApp1
                 {
                     statusBarText.Text = "Received checkout messages";
                     testbox.Items.Insert(0, "Received checkout message");
-                    Thread.Sleep(1000);
+                    if (testMode) Thread.Sleep(1000);
                 });
             };
             addClientProc("checkOut", checkOut);
@@ -277,7 +278,7 @@ namespace WpfApp1
                 {
                     statusBarText.Text = "Received browse messages";
                     testbox.Items.Insert(0, "Received browse message");
-                    Thread.Sleep(1000);
+                    if (testMode) Thread.Sleep(1000);
                 });
             };
             addClientProc("browse", browse);
@@ -316,7 +317,7 @@ namespace WpfApp1
                     msg.remove("command");
                     msg.add("command", "echo");
                     translater.postMessage(msg);
-                    Thread.Sleep(500);
+                    if (testMode) Thread.Sleep(500);
                 });
             };
             addClientProc("connect", connect);
@@ -332,7 +333,7 @@ namespace WpfApp1
                 {
                     statusBarText.Text = "Received viewdata message";
                     testbox.Items.Insert(0, "Received viewdata message");
-                    Thread.Sleep(1000);
+                    if (testMode) Thread.Sleep(1000);
                 });
             };
             addClientProc("viewdata", viewdata);
@@ -416,11 +417,6 @@ namespace WpfApp1
             loadDispatcher();
 
             addPath();
-
-            test1();
-            test3();
-            test2a();
-            test2b();
 
         }
         //----< strip off name of first part of path >---------------------
@@ -662,6 +658,17 @@ namespace WpfApp1
             Console.Write("  Simulate Click viewdata button \n");
             viewdatabtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             Console.Write("  Requirement #3 passed. \n");
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            // Create OpenFileDialog 
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.DefaultExt = ".png";
+            dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
+
+            // Display OpenFileDialog by calling ShowDialog method 
+            Nullable<bool> result = dlg.ShowDialog();
         }
     }
 }
