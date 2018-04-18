@@ -150,7 +150,7 @@ namespace WpfApp1
             if (listname == "DirList_browse")
                 return FileList_browse;
 
-            return FileList;
+            return FileList_checkin;
         }
 
         //----< function determing which dirlist >-------
@@ -164,7 +164,7 @@ namespace WpfApp1
             if (listname == "DirList_browse")
                 return DirList_browse;
 
-            return DirList;
+            return DirList_checkin;
         }
 
         //----< add client processing for message with key >---------------
@@ -375,11 +375,9 @@ namespace WpfApp1
 
         private void addPath()
         {
-            pathTextBlock_.Add("DirList", PathTextBlock);
             pathTextBlock_.Add("DirList_checkin", PathTextBlock_checkin);
             pathTextBlock_.Add("DirList_checkout", PathTextBlock_checkout);
             pathTextBlock_.Add("DirList_browse", PathTextBlock_browse);
-            PathTextBlock.Text = "Storage";
             PathTextBlock_checkin.Text = "Storage";
             PathTextBlock_checkout.Text = "Storage";
             PathTextBlock_browse.Text = "Storage";
@@ -417,7 +415,6 @@ namespace WpfApp1
             loadDispatcher();
 
             addPath();
-
         }
         //----< strip off name of first part of path >---------------------
 
@@ -621,10 +618,10 @@ namespace WpfApp1
 
             MouseButtonEventArgs e = new MouseButtonEventArgs(Mouse.PrimaryDevice, 0, MouseButton.Left);
             e.RoutedEvent = Control.MouseDoubleClickEvent;
-            e.Source = FileList;
-            FileList.Items.Add("Message.h");
-            FileList.SelectedIndex = 0;
-            FileList.RaiseEvent(e);
+            e.Source = FileList_checkin;
+            FileList_checkin.Items.Add("Message.h");
+            FileList_checkin.SelectedIndex = 0;
+            FileList_checkin.RaiseEvent(e);
         }
 
         //----< Test function for requirement #2b >----------------

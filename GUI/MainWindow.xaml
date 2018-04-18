@@ -78,134 +78,128 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Content="For Project#3 Demo" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Margin="48.5,0,198,0.5"></Label>
-                        <Grid Grid.ColumnSpan="2" Margin="0,24,0,0" Grid.RowSpan="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0" Margin="0 100">
-                                <DockPanel Margin="10,0,0,0">
-                                    <TextBox Text="File Selected" VerticalAlignment="Center" Margin="0,11" Width="158"></TextBox>
-                                    <Button Content="Select File" Width="80" HorizontalAlignment="Right" Click="Button_Click" Margin="0,10"></Button>
-                                </DockPanel>
-                            </Grid>
-                            <Grid Grid.Column="1" Margin="10 0 10 10">
+                    <TabControl Grid.Row="0">
+                        <TabItem Header="Add Metadata">
+                            <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"></RowDefinition>
                                     <RowDefinition Height="*"></RowDefinition>
-                                    <RowDefinition Height="*"></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <Label Grid.Row="0" FontWeight="Bold" Content="File Information:"></Label>
-                                <Grid Grid.Row="1">
+                                <Grid Grid.Row="0" Margin="50 50 50 20">
+                                    <DockPanel>
+                                        <TextBox Height="30" Text="File Selected" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,2,0,1.5" Width="302"></TextBox>
+                                        <Button Content="Select File" HorizontalAlignment="Right" Click="Button_Click" Margin="0,0,0,1" Width="80"></Button>
+                                    </DockPanel>
+                                </Grid>
+                                <Grid Grid.Row="1" Margin="10 0 10 10">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto"></RowDefinition>
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
                                     </Grid.RowDefinitions>
-                                    <Grid Grid.Row="0" Margin="0 5">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="auto"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" Content="Author"></Label>
-                                        <TextBox Grid.Column="1"></TextBox>
+                                    <Label Grid.Row="0" FontWeight="Bold" Content="File Information:"></Label>
+                                    <Grid Grid.Row="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0" Margin="0 5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="0" Content="Author"></Label>
+                                            <TextBox Grid.Column="1"></TextBox>
+                                        </Grid>
+                                        <Grid Grid.Row="1" Margin="0 5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="0" Content="Description"></Label>
+                                            <TextBox Grid.Column="1"></TextBox>
+                                        </Grid>
+                                        <Grid Grid.Row="2" Margin="0 5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="0" Content="Category"></Label>
+                                            <TextBox Grid.Column="1"></TextBox>
+                                        </Grid>
                                     </Grid>
-                                    <Grid Grid.Row="1" Margin="0 5">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="auto"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" Content="Description"></Label>
-                                        <TextBox Grid.Column="1"></TextBox>
+                                    <Button Grid.Row="2" Name="checkinbtn" Content="Check-In" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click_Checkin"></Button>
+                                </Grid>
+
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Add Dependency">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <!-- dirs -->
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <!-- gridsplitter-->
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <!-- files -->
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0" Background="#fff">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="30"></RowDefinition>
+                                            <!-- label -->
+                                            <RowDefinition Height="30"></RowDefinition>
+                                            <!-- textblock -->
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <!-- dir list -->
+                                            <RowDefinition Height="10"></RowDefinition>
+                                            <!-- buttons -->
+                                        </Grid.RowDefinitions>
+                                        <DockPanel Grid.Row="0">
+                                            <TextBlock DockPanel.Dock="Left" Margin="10 0" VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Directories</TextBlock>
+                                        </DockPanel>
+                                        <DockPanel Grid.Row="1">
+                                            <TextBlock x:Name="PathTextBlock_checkin" DockPanel.Dock="Left" Padding="10 0" Margin="12 0" VerticalAlignment="Center" FontSize="14" FontWeight="Normal" Background="#fff">path</TextBlock>
+                                        </DockPanel>
+                                        <Border Grid.Row="2" BorderThickness="10" Background="#000">
+                                            <ListBox x:Name="DirList_checkin" MouseDoubleClick="DirList_MouseDoubleClick"></ListBox>
+                                        </Border>
                                     </Grid>
-                                    <Grid Grid.Row="2" Margin="0 5">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="auto"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" Content="Category"></Label>
-                                        <TextBox Grid.Column="1"></TextBox>
+                                    <GridSplitter Grid.Row="1" Grid.ColumnSpan="3" Height="5" HorizontalAlignment="Stretch" Background="#666"></GridSplitter>
+                                    <Grid Grid.Row="2" Background="#fff">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="30"></RowDefinition>
+                                            <!-- label -->
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <!-- file list -->
+                                            <RowDefinition Height="10"></RowDefinition>
+                                            <!-- buttons -->
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" Padding="10 10" FontWeight="Bold" FontSize="14">Files</TextBlock>
+                                        <Border Grid.Row="1" BorderThickness="10">
+                                            <ListBox x:Name="FileList_checkin" MouseDoubleClick="FileList_MouseDoubleClick"></ListBox>
+                                        </Border>
                                     </Grid>
                                 </Grid>
-                                <Button Grid.Row="2" Name="checkinbtn" Content="Check-In" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click_Checkin"></Button>
+                                <Grid Grid.Column="1" Margin="0,102,0,133">
+                                    <Button Content="=>" Margin="0,100,-1,67.5"></Button>
+                                </Grid>
+                                <StackPanel Grid.Column="2">
+                                    <Label>Current File:</Label>
+                                    <ListBox Height="130"></ListBox>
+                                    <Button Content="Add dependency" Margin="50"></Button>
+                                </StackPanel>
                             </Grid>
-                        </Grid>
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="auto"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <!-- dirs -->
-                                <RowDefinition Height="5"></RowDefinition>
-                                <!-- gridsplitter-->
-                                <RowDefinition Height="*"></RowDefinition>
-                                <!-- files -->
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0" Background="#ccc">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="30"></RowDefinition>
-                                    <!-- label -->
-                                    <RowDefinition Height="30"></RowDefinition>
-                                    <!-- textblock -->
-                                    <RowDefinition Height="*"></RowDefinition>
-                                    <!-- dir list -->
-                                    <RowDefinition Height="10"></RowDefinition>
-                                    <!-- buttons -->
-                                </Grid.RowDefinitions>
-                                <DockPanel Grid.Row="0">
-                                    <TextBlock DockPanel.Dock="Left" Margin="10 0" VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Directories</TextBlock>
-                                </DockPanel>
-                                <DockPanel Grid.Row="1">
-                                    <TextBlock x:Name="PathTextBlock_checkin" DockPanel.Dock="Left" Padding="10 0" Margin="12 0" VerticalAlignment="Center" FontSize="14" FontWeight="Normal" Background="#fff">path</TextBlock>
-                                </DockPanel>
-                                <Border Grid.Row="2" BorderThickness="10" Background="#000">
-                                    <ListBox x:Name="DirList_checkin" MouseDoubleClick="DirList_MouseDoubleClick"></ListBox>
-                                </Border>
-                            </Grid>
-                            <GridSplitter Grid.Row="1" Grid.ColumnSpan="3" Height="5" HorizontalAlignment="Stretch" Background="#666"></GridSplitter>
-                            <Grid Grid.Row="2" Background="#ccc">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="30"></RowDefinition>
-                                    <!-- label -->
-                                    <RowDefinition Height="*"></RowDefinition>
-                                    <!-- file list -->
-                                    <RowDefinition Height="10"></RowDefinition>
-                                    <!-- buttons -->
-                                </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0" Padding="10 10" FontWeight="Bold" FontSize="14">Files</TextBlock>
-                                <Border Grid.Row="1" BorderThickness="10" Background="#000">
-                                    <ListBox x:Name="FileList_checkin" MouseDoubleClick="FileList_MouseDoubleClick"></ListBox>
-                                </Border>
-                            </Grid>
-                        </Grid>
-                        <Grid Grid.Column="1" Margin="0,102,0,133">
-                            <Button Content="->"></Button>
-                        </Grid>
-                        <StackPanel Grid.Column="2">
-                            <Label>Current File:</Label>
-                            <ListBox Height="130"></ListBox>
-                            <Button Content="Add dependency" Margin="50"></Button>
-                        </StackPanel>
-                    </Grid>
+                        </TabItem>
+                    </TabControl>
                 </Grid>
-                
             </TabItem>
             <TabItem Header="Check-Out">
                 <Grid>
@@ -228,7 +222,7 @@
                                 <RowDefinition Height="*"></RowDefinition>
                                 <!-- files -->
                             </Grid.RowDefinitions>
-                            <Grid Grid.Row="0" Background="#ccc">
+                            <Grid Grid.Row="0" Background="#fff">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="30"></RowDefinition>
                                     <!-- label -->
@@ -245,12 +239,12 @@
                                 <DockPanel Grid.Row="1">
                                     <TextBlock x:Name="PathTextBlock_checkout" DockPanel.Dock="Left" Padding="10 0" Margin="12 0" VerticalAlignment="Center" FontSize="14" FontWeight="Normal" Background="#fff">path</TextBlock>
                                 </DockPanel>
-                                <Border Grid.Row="2" BorderThickness="10" Background="#000">
+                                <Border Grid.Row="2" BorderThickness="10" Background="#fff">
                                     <ListBox x:Name="DirList_checkout" MouseDoubleClick="DirList_MouseDoubleClick"></ListBox>
                                 </Border>
                             </Grid>
                             <GridSplitter Grid.Row="1" Grid.ColumnSpan="3" Height="5" HorizontalAlignment="Stretch" Background="#666"></GridSplitter>
-                            <Grid Grid.Row="2" Background="#ccc">
+                            <Grid Grid.Row="2" Background="#fff">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="30"></RowDefinition>
                                     <!-- label -->
@@ -260,7 +254,7 @@
                                     <!-- buttons -->
                                 </Grid.RowDefinitions>
                                 <TextBlock Grid.Row="0" Padding="10 10" FontWeight="Bold" FontSize="14">Files</TextBlock>
-                                <Border Grid.Row="1" BorderThickness="10" Background="#000">
+                                <Border Grid.Row="1" BorderThickness="10" Background="#fff">
                                     <ListBox x:Name="FileList_checkout" MouseDoubleClick="FileList_MouseDoubleClick"></ListBox>
                                 </Border>
                             </Grid>
@@ -268,7 +262,7 @@
                         <Grid Grid.Column="1" Margin="10 0 10 10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"></RowDefinition>
-                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="250"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
                             </Grid.RowDefinitions>
@@ -278,13 +272,13 @@
                                     <RowDefinition Height="auto"></RowDefinition>
                                     <RowDefinition Height="auto"></RowDefinition>
                                     <RowDefinition Height="auto"></RowDefinition>
-                                    <RowDefinition Height="auto"></RowDefinition>
-                                    <RowDefinition Height="auto"></RowDefinition>
-                                    <RowDefinition Height="auto"></RowDefinition>
-                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <Grid Grid.Row="0" Margin="0 5">
-                                    <TextBox></TextBox>
+                                    <DockPanel>
+                                        <TextBox Margin="0,0,10,0.5" Width="156"></TextBox>
+                                        <Button Content="select des"></Button>
+                                    </DockPanel>
                                 </Grid>
                                 <Grid Grid.Row="1" Margin="0 5">
                                     <CheckBox Content="with dependencies"></CheckBox>
@@ -293,16 +287,17 @@
                                     <Label FontWeight="Bold" Content="File metadata:"></Label>
                                 </Grid>
                                 <Grid Grid.Row="3" Margin="0 5">
-                                    <Label Content="Author:"></Label>
-                                </Grid>
-                                <Grid Grid.Row="4" Margin="0 5">
-                                    <Label Content="Description:"></Label>
-                                </Grid>
-                                <Grid Grid.Row="5" Margin="0 5">
-                                    <Label Content="Category:"></Label>
+                                    <ListBox/>
                                 </Grid>
                             </Grid>
-                            <ListBox Grid.Row="2" Name="viewdatabtn"  HorizontalAlignment="Center" VerticalAlignment="Center">Checkout information</ListBox>
+                            <Grid Grid.Row="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0">Checkout status</Label>
+                                <ListBox Grid.Row="1" Name="viewdatabtn"></ListBox>
+                            </Grid>
                             <Button Grid.Row="3" Name="checkoutbtn" Content="Check-out" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click_Checkout"></Button>
                         </Grid>
                     </Grid>
@@ -311,140 +306,115 @@
             <TabItem Header="Browse">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="For Project#3 Demo" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <!-- dirs -->
-                                <RowDefinition Height="5"></RowDefinition>
-                                <!-- gridsplitter-->
-                                <RowDefinition Height="*"></RowDefinition>
-                                <!-- files -->
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0" Background="#ccc">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="30"></RowDefinition>
-                                    <!-- label -->
-                                    <RowDefinition Height="30"></RowDefinition>
-                                    <!-- textblock -->
-                                    <RowDefinition Height="*"></RowDefinition>
-                                    <!-- dir list -->
-                                    <RowDefinition Height="10"></RowDefinition>
-                                    <!-- buttons -->
-                                </Grid.RowDefinitions>
-                                <DockPanel Grid.Row="0">
-                                    <TextBlock DockPanel.Dock="Left" Margin="10 0" VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Directories</TextBlock>
-                                </DockPanel>
-                                <DockPanel Grid.Row="1">
-                                    <TextBlock x:Name="PathTextBlock_browse" DockPanel.Dock="Left" Padding="10 0" Margin="12 0" VerticalAlignment="Center" FontSize="14" FontWeight="Normal" Background="#fff">path</TextBlock>
-                                </DockPanel>
-                                <Border Grid.Row="2" BorderThickness="10" Background="#000">
-                                    <ListBox x:Name="DirList_browse" MouseDoubleClick="DirList_MouseDoubleClick"></ListBox>
-                                </Border>
-                            </Grid>
-                            <GridSplitter Grid.Row="1" Grid.ColumnSpan="3" Height="5" HorizontalAlignment="Stretch" Background="#666"></GridSplitter>
-                            <Grid Grid.Row="2" Background="#ccc">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="30"></RowDefinition>
-                                    <!-- label -->
-                                    <RowDefinition Height="*"></RowDefinition>
-                                    <!-- file list -->
-                                    <RowDefinition Height="10"></RowDefinition>
-                                    <!-- buttons -->
-                                </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0" Padding="10 10" FontWeight="Bold" FontSize="14">Files</TextBlock>
-                                <Border Grid.Row="1" BorderThickness="10" Background="#000">
-                                    <ListBox x:Name="FileList_browse" MouseDoubleClick="FileList_MouseDoubleClick"></ListBox>
-                                </Border>
-                            </Grid>
-                        </Grid>
-                        <Grid Grid.Column="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Label Grid.Row="0" FontWeight="Bold" Content="Query" Margin="8 0 10 10"></Label>
+                    <TabControl Grid.Row="0">
+                        <TabItem Header="View File">
                             <Grid Grid.Row="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"></RowDefinition>
-                                    <RowDefinition Height="auto"></RowDefinition>
-                                    <RowDefinition Height="*"></RowDefinition>
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Row="0">
-                                    <TextBox Text=" Please enter query conditions..."  Margin="10 0 10 0"></TextBox>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <!-- dirs -->
+                                        <RowDefinition Height="5"></RowDefinition>
+                                        <!-- gridsplitter-->
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <!-- files -->
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0" Background="#fff">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="30"></RowDefinition>
+                                            <!-- label -->
+                                            <RowDefinition Height="30"></RowDefinition>
+                                            <!-- textblock -->
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <!-- dir list -->
+                                            <RowDefinition Height="10"></RowDefinition>
+                                            <!-- buttons -->
+                                        </Grid.RowDefinitions>
+                                        <DockPanel Grid.Row="0">
+                                            <TextBlock DockPanel.Dock="Left" Margin="10 0" VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Directories</TextBlock>
+                                        </DockPanel>
+                                        <DockPanel Grid.Row="1">
+                                            <TextBlock x:Name="PathTextBlock_browse" DockPanel.Dock="Left" Padding="10 0" Margin="12 0" VerticalAlignment="Center" FontSize="14" FontWeight="Normal" Background="#fff">path</TextBlock>
+                                        </DockPanel>
+                                        <Border Grid.Row="2" BorderThickness="10" Background="#fff">
+                                            <ListBox x:Name="DirList_browse" MouseDoubleClick="DirList_MouseDoubleClick"></ListBox>
+                                        </Border>
+                                    </Grid>
+                                    <GridSplitter Grid.Row="1" Grid.ColumnSpan="3" Height="5" HorizontalAlignment="Stretch" Background="#666"></GridSplitter>
+                                    <Grid Grid.Row="2" Background="#fff">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="30"></RowDefinition>
+                                            <!-- label -->
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <!-- file list -->
+                                            <RowDefinition Height="10"></RowDefinition>
+                                            <!-- buttons -->
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" Padding="10 10" FontWeight="Bold" FontSize="14">Files</TextBlock>
+                                        <Border Grid.Row="1" BorderThickness="10" Background="#000">
+                                            <ListBox x:Name="FileList_browse" MouseDoubleClick="FileList_MouseDoubleClick"></ListBox>
+                                        </Border>
+                                    </Grid>
                                 </Grid>
-                                <Grid Grid.Row="1" Margin="10 10 10 10">
-                                    <Label FontWeight="Bold" Content="Query result:"></Label>
-                                </Grid>
-                                <Grid Grid.Row="2" Margin="10 0 10 10">
-                                    <ListBox></ListBox>
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="200"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="2">
+                                            <Button Content="Close File" Width="100" Margin="10 0 10 0"></Button>
+                                        </Grid>
+                                        <Grid Grid.Row="0" Margin="10 10 10 10">
+                                            <Label FontWeight="Bold" Content="File Info:"></Label>
+                                        </Grid>
+                                        <Grid Grid.Row="1" Margin="10 0 10 10">
+                                            <ListBox></ListBox>
+                                        </Grid>
+                                    </Grid>
+                                    <Button Grid.Row="2" Name="browsebtn" Content="Browse" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click_Browse"></Button>
                                 </Grid>
                             </Grid>
-                            <Button Grid.Row="2" Name="browsebtn" Content="Browse" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click_Browse"></Button>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </TabItem>
-
-            <TabItem Header="View File">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <!-- dirs -->
-                        <RowDefinition Height="5"></RowDefinition>
-                        <!-- gridsplitter-->
-                        <RowDefinition Height="*"></RowDefinition>
-                        <!-- files -->
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Background="#ccc">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="76*"/>
-                            <ColumnDefinition Width="439*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30"></RowDefinition>
-                            <!-- label -->
-                            <RowDefinition Height="30"></RowDefinition>
-                            <!-- textblock -->
-                            <RowDefinition Height="*"></RowDefinition>
-                            <!-- dir list -->
-                            <RowDefinition Height="10"></RowDefinition>
-                            <!-- buttons -->
-                        </Grid.RowDefinitions>
-                        <DockPanel Grid.Row="0" Grid.ColumnSpan="2">
-                            <TextBlock DockPanel.Dock="Left" Margin="10 0" VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Dirs</TextBlock>
-                        </DockPanel>
-                        <DockPanel Grid.Row="1" Grid.ColumnSpan="2">
-                            <TextBlock x:Name="PathTextBlock" DockPanel.Dock="Left" Padding="10 0" Margin="12 0" VerticalAlignment="Center" FontSize="14" FontWeight="Normal" Background="#fff">path</TextBlock>
-                        </DockPanel>
-                        <Border Grid.Row="2" BorderThickness="10" Background="#000" Grid.ColumnSpan="2" Margin="0,0,0,9.5" Grid.RowSpan="2">
-                            <ListBox x:Name="DirList" MouseDoubleClick="DirList_MouseDoubleClick"></ListBox>
-                        </Border>
-                    </Grid>
-                    <GridSplitter Grid.Row="1" Grid.ColumnSpan="3" Height="5" HorizontalAlignment="Stretch" Background="#666"></GridSplitter>
-                    <Grid Grid.Row="2" Background="#ccc">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30"></RowDefinition>
-                            <!-- label -->
-                            <RowDefinition Height="*"></RowDefinition>
-                            <!-- file list -->
-                            <RowDefinition Height="10"></RowDefinition>
-                            <!-- buttons -->
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Padding="10 10" FontWeight="Bold" FontSize="14">Files</TextBlock>
-                        <Border Grid.Row="1" BorderThickness="10" Background="#000">
-                            <ListBox x:Name="FileList" MouseDoubleClick="FileList_MouseDoubleClick"></ListBox>
-                        </Border>
-                    </Grid>
+                        </TabItem>
+                        <TabItem Header="Query">
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" FontWeight="Bold" Content="Query" Margin="8 0 10 10"></Label>
+                                <Grid Grid.Row="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0">
+                                        <TextBox Text=" Please enter query conditions..."  Margin="10 0 10 0"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Row="1" Margin="10 10 10 10">
+                                        <Label FontWeight="Bold" Content="Query result:"></Label>
+                                    </Grid>
+                                    <Grid Grid.Row="2" Margin="10 0 10 10">
+                                        <ListBox></ListBox>
+                                    </Grid>
+                                </Grid>
+                                <Button Grid.Row="2" Name="browsebtn2" Content="Browse" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click_Browse"></Button>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
                 </Grid>
             </TabItem>
         </TabControl>
