@@ -666,6 +666,14 @@ namespace WpfApp1
 
             // Display OpenFileDialog by calling ShowDialog method 
             Nullable<bool> result = dlg.ShowDialog();
+
+            // Get the selected file name and display in a TextBox 
+            if (result == true)
+            {
+                // Open document 
+                string filename = dlg.FileName;
+                fileselect.Text = filename;
+            }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

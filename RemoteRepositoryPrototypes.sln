@@ -10,6 +10,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MsgPassingComm", "CppCommWithFileXfer\MsgPassingComm\MsgPassingComm.vcxproj", "{6E58E051-CC07-4D7F-92A4-06A117A79CA7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ServerPrototype", "ServerPrototype\ServerPrototype.vcxproj", "{FD4E1C9E-ECA7-49CD-A3CE-B9F99864B835}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E5CEB6A0-9E06-4C64-9E2D-4D09C4424899} = {E5CEB6A0-9E06-4C64-9E2D-4D09C4424899}
+		{0A82ECDC-7520-453A-8F2C-D813FEEE7537} = {0A82ECDC-7520-453A-8F2C-D813FEEE7537}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Utilities", "CppCommWithFileXfer\Utilities\Utilities.vcxproj", "{462B43B2-8B13-4178-BF2A-903F76F1985C}"
 EndProject
@@ -26,6 +30,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Build.txt = Build.txt
 		Parts.txt = Parts.txt
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Repository", "\\Mac\Home\Documents\CSE687OOD\Projects\RemoteCodeRepository\Repository\Repository\Repository.vcxproj", "{E5CEB6A0-9E06-4C64-9E2D-4D09C4424899}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XmlDocument", "\\Mac\Home\Documents\CSE687OOD\Projects\RemoteCodeRepository\Repository\NoSqlDb\XmlDocument\XmlDocument\XmlDocument.vcxproj", "{0A82ECDC-7520-453A-8F2C-D813FEEE7537}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -133,6 +141,24 @@ Global
 		{B1DB1846-C0FC-48EF-80E4-DC556E9240FA}.Release|x64.Build.0 = Release|x64
 		{B1DB1846-C0FC-48EF-80E4-DC556E9240FA}.Release|x86.ActiveCfg = Release|Win32
 		{B1DB1846-C0FC-48EF-80E4-DC556E9240FA}.Release|x86.Build.0 = Release|Win32
+		{E5CEB6A0-9E06-4C64-9E2D-4D09C4424899}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{E5CEB6A0-9E06-4C64-9E2D-4D09C4424899}.Debug|x64.ActiveCfg = Debug|x64
+		{E5CEB6A0-9E06-4C64-9E2D-4D09C4424899}.Debug|x64.Build.0 = Debug|x64
+		{E5CEB6A0-9E06-4C64-9E2D-4D09C4424899}.Debug|x86.ActiveCfg = Debug|Win32
+		{E5CEB6A0-9E06-4C64-9E2D-4D09C4424899}.Debug|x86.Build.0 = Debug|Win32
+		{E5CEB6A0-9E06-4C64-9E2D-4D09C4424899}.Release|Any CPU.ActiveCfg = Release|Win32
+		{E5CEB6A0-9E06-4C64-9E2D-4D09C4424899}.Release|x64.ActiveCfg = Release|x64
+		{E5CEB6A0-9E06-4C64-9E2D-4D09C4424899}.Release|x64.Build.0 = Release|x64
+		{E5CEB6A0-9E06-4C64-9E2D-4D09C4424899}.Release|x86.ActiveCfg = Release|Win32
+		{E5CEB6A0-9E06-4C64-9E2D-4D09C4424899}.Release|x86.Build.0 = Release|Win32
+		{0A82ECDC-7520-453A-8F2C-D813FEEE7537}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{0A82ECDC-7520-453A-8F2C-D813FEEE7537}.Debug|x64.ActiveCfg = Debug|Win32
+		{0A82ECDC-7520-453A-8F2C-D813FEEE7537}.Debug|x86.ActiveCfg = Debug|Win32
+		{0A82ECDC-7520-453A-8F2C-D813FEEE7537}.Debug|x86.Build.0 = Debug|Win32
+		{0A82ECDC-7520-453A-8F2C-D813FEEE7537}.Release|Any CPU.ActiveCfg = Release|Win32
+		{0A82ECDC-7520-453A-8F2C-D813FEEE7537}.Release|x64.ActiveCfg = Release|Win32
+		{0A82ECDC-7520-453A-8F2C-D813FEEE7537}.Release|x86.ActiveCfg = Release|Win32
+		{0A82ECDC-7520-453A-8F2C-D813FEEE7537}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

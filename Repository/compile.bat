@@ -1,0 +1,1 @@
+devenv %~dp0\Repository.sln /rebuild debug

@@ -47,6 +47,7 @@
 #include "../CppCommWithFileXfer/MsgPassingComm/Comm.h"
 #include <windows.h>
 #include <tchar.h>
+#include "../Repository/Repository/Repository.h"
 
 namespace Repository
 {
@@ -76,14 +77,18 @@ namespace Repository
     static Dirs getDirs(const SearchPath& path = storageRoot);
     static Files getFiles(const SearchPath& path = storageRoot);
   private:
-    MsgPassingCommunication::Comm comm_;
-    MsgDispatcher dispatcher_;
-    std::thread msgProcThrd_;
+	MsgPassingCommunication::Comm comm_;
+	MsgDispatcher dispatcher_;
+	std::thread msgProcThrd_;
+	Repository::RepositoryCore repo_;
+	Repository::CheckIn checkin_;
+	Repository::CheckOut checkout_;
+	Repository::Browse browse_;
   };
   //----< initialize server endpoint and give server a name >----------
 
   inline Server::Server(MsgPassingCommunication::EndPoint ep, const std::string& name)
-    : comm_(ep, name) {}
+    : comm_(ep, name), checkin_(repo_), checkout_(repo_), browse_(repo_) {}
 
   //----< start server's instance of Comm >----------------------------
 
