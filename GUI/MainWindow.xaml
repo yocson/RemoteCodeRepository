@@ -88,7 +88,7 @@
                                 </Grid.RowDefinitions>
                                 <Grid Grid.Row="0" Margin="50 50 50 20">
                                     <DockPanel>
-                                        <TextBox Height="30" Text="File Selected" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,2,0,1.5" Width="302"></TextBox>
+                                        <TextBox Height="20" Text="File Selected" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,2,0,1.5" Width="302"></TextBox>
                                         <Button Content="Select File" HorizontalAlignment="Right" Click="Button_Click" Margin="0,0,0,1" Width="80"></Button>
                                     </DockPanel>
                                 </Grid>
@@ -277,7 +277,7 @@
                                 <Grid Grid.Row="0" Margin="0 5">
                                     <DockPanel>
                                         <TextBox Margin="0,0,10,0.5" Width="156"></TextBox>
-                                        <Button Content="select des"></Button>
+                                        <Button Content="select des" Click="Button_Click_1"/>
                                     </DockPanel>
                                 </Grid>
                                 <Grid Grid.Row="1" Margin="0 5">
