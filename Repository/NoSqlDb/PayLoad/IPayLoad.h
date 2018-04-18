@@ -1,23 +1,14 @@
 #pragma once
+#include "../XmlDocument/XmlElement/XmlElement.h"
 
 namespace NoSqlDb
 {
-#include "../XmlDocument/XmlElement/XmlElement.h"
-
-    using Xml = std::string;
-    using Sptr = std::shared_ptr<XmlProcessing::AbstractXmlElement>;
-
-    // template<typename P>
-    // struct IPayLoad
-    // {
-    //     virtual Sptr toXmlElement() = 0;
-    //     static P fromXmlElement(Sptr elem);
-    //     virtual ~IPayLoad() {};
-    // };
-
 	template<typename P>
 	struct IPayLoad
 	{
+		using Xml = std::string;
+		using Sptr = std::shared_ptr<XmlProcessing::AbstractXmlElement>;
+
 		// deal with XML format
 		virtual void fromXML(Sptr payloadTag) = 0;
 		virtual Sptr toXML() = 0;

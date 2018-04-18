@@ -172,6 +172,12 @@
     <ProjectReference Include="..\FileSystem-Windows\FileSystemDemo\FileSystemDemo.vcxproj">
       <Project>{ef4a3188-ca93-45a2-ab52-7548669e3aa8}</Project>
     </ProjectReference>
+    <ProjectReference Include="\\mac\Home\Documents\CSE687OOD\Projects\RemoteCodeRepository\Repository\NoSqlDb\PayLoad\PayLoad.vcxproj">
+      <Project>{9e44fe9d-897d-413e-9961-95ec734ceab5}</Project>
+    </ProjectReference>
+    <ProjectReference Include="\\mac\Home\Documents\CSE687OOD\Projects\RemoteCodeRepository\Repository\NoSqlDb\XmlDocument\XmlDocument\XmlDocument.vcxproj">
+      <Project>{0a82ecdc-7520-453a-8f2c-d813feee7537}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Repository\NoSqlDb\DateTime\DateTime.h" />

@@ -30,6 +30,21 @@
     <ClInclude Include="..\NoSqlDb\XmlDocument\XmlElement\XmlElement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\CheckIn\CheckIn.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CheckOut\CheckOut.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Browse\Browse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NoSqlDb\NoSql\NoSql.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RepositoryCore\RepositoryCore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Browse\Browse.cpp">

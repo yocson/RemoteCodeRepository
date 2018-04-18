@@ -15,18 +15,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ServerPrototype.cpp">
+    <ClCompile Include="..\Repository\NoSqlDb\DateTime\DateTime.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Repository\NoSqlDb\DateTime\DateTime.cpp">
+    <ClCompile Include="ServerPrototype.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ServerPrototype.h">
+    <ClInclude Include="..\Repository\NoSqlDb\DateTime\DateTime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Repository\NoSqlDb\DateTime\DateTime.h">
+    <ClInclude Include="ServerPrototype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

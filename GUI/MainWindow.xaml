@@ -276,7 +276,7 @@
                                 </Grid.RowDefinitions>
                                 <Grid Grid.Row="0" Margin="0 5">
                                     <DockPanel>
-                                        <TextBox Margin="0,0,10,0.5" Width="156"></TextBox>
+                                        <TextBox Name="desselect" Margin="0,0,10,0.5" Width="156"></TextBox>
                                         <Button Content="select des" Click="Button_Click_1"/>
                                     </DockPanel>
                                 </Grid>

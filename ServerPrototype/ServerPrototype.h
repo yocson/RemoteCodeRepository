@@ -48,6 +48,7 @@
 #include <windows.h>
 #include <tchar.h>
 #include "../Repository/Repository/Repository.h"
+#include "../Repository/NoSqlDb/PayLoad/PayLoad.h"
 
 namespace Repository
 {

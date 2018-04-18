@@ -115,10 +115,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Browse\Browse.h" />
+    <ClInclude Include="..\CheckIn\CheckIn.h" />
+    <ClInclude Include="..\CheckOut\CheckOut.h" />
     <ClInclude Include="..\NoSqlDb\DateTime\DateTime.h" />
+    <ClInclude Include="..\NoSqlDb\NoSql\NoSql.h" />
     <ClInclude Include="..\NoSqlDb\PayLoad\PayLoad.h" />
     <ClInclude Include="..\NoSqlDb\XmlDocument\XmlDocument\XmlDocument.h" />
     <ClInclude Include="..\NoSqlDb\XmlDocument\XmlElement\XmlElement.h" />
+    <ClInclude Include="..\RepositoryCore\RepositoryCore.h" />
     <ClInclude Include="Repository.h" />
   </ItemGroup>
   <ItemGroup>
