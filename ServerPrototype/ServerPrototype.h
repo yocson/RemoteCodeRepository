@@ -80,22 +80,22 @@ namespace Repository
     void postMessage(MsgPassingCommunication::Message msg);
     MsgPassingCommunication::Message getMessage();
 
-	bool checkAuthor(const std::string& author, const std::string& namesp, const std::string& filename);
+	static bool checkAuthor(const std::string& author, const std::string& namesp, const std::string& filename);
     static Dirs getDirs(const SearchPath& path = storageRoot);
     static Files getFiles(const SearchPath& path = storageRoot);
   private:
 	MsgPassingCommunication::Comm comm_;
 	MsgDispatcher dispatcher_;
 	std::thread msgProcThrd_;
-	Repository::RepositoryCore repo_;
-	Repository::CheckIn checkin_;
-	Repository::CheckOut checkout_;
-	Repository::Browse browse_;
+	static Repository::RepositoryCore repo_;
+	static Repository::CheckIn checkin_;
+	static Repository::CheckOut checkout_;
+	static Repository::Browse browse_;
   };
   //----< initialize server endpoint and give server a name >----------
 
   inline Server::Server(MsgPassingCommunication::EndPoint ep, const std::string& name)
-    : comm_(ep, name), checkin_(repo_), checkout_(repo_), browse_(repo_) {}
+    : comm_(ep, name) {}
 
   //----< start server's instance of Comm >----------------------------
 

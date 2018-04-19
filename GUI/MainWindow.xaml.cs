@@ -262,6 +262,7 @@ namespace WpfApp1
                 {
                     if (rcvMsg.value("pass") == "1")
                     {
+                        Console.Write("");
                         CsEndPoint serverEndPoint = new CsEndPoint();
                         serverEndPoint.machineAddress = serverAddr;
                         serverEndPoint.port = serverPort;
@@ -273,11 +274,14 @@ namespace WpfApp1
                         msg.add("desciption", descrip_text.Text);
                         msg.add("category", cate_text.Text);
                         msg.add("namesp", cate_text.Text);
-                        msg.add("file", System.IO.Path.GetFileNameWithoutExtension(fileselect.Text));
+                        msg.add("file", System.IO.Path.GetFileName(fileselect.Text));
                         msg.add("filename", System.IO.Path.GetFileNameWithoutExtension(fileselect.Text));
-                        
-                    } else
-                    {
+                        string targetPath = "../SendFiles";
+                        string destFile = System.IO.Path.Combine(targetPath, System.IO.Path.GetFileName(fileselect.Text));
+                        System.IO.File.Copy(fileselect.Text, destFile, true);
+                        translater.postMessage(msg);
+                    }
+                    else {
                         author_text.Background = Brushes.Red;
                         statusBarText.Text = "Author is wrong";
                     }
@@ -286,6 +290,18 @@ namespace WpfApp1
                 });
             };
             addClientProc("checkAuthor", checkAuthor);
+        }
+
+        private void DispatcherCheckInFile()
+        {
+            Action<CsMessage> checkInFile = (CsMessage rcvMsg) =>
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    statusBarText.Text = "Received a checkin file msg";
+                });
+            };
+            addClientProc("checkInFile", checkInFile);
         }
 
         //----< load checkOut processing into dispatcher dictionary >------
@@ -404,6 +420,8 @@ namespace WpfApp1
             DispatcherSendFile();
             DispatcherConnect();
             DispatcherViewData();
+            DispatcherCheckAuthor();
+            DispatcherCheckInFile();
         }
 
         //----< add all path to pathtextblocks >---------------------------
