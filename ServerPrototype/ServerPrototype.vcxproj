@@ -178,6 +178,9 @@
     <ProjectReference Include="\\mac\Home\Documents\CSE687OOD\Projects\RemoteCodeRepository\Repository\NoSqlDb\XmlDocument\XmlDocument\XmlDocument.vcxproj">
       <Project>{0a82ecdc-7520-453a-8f2c-d813feee7537}</Project>
     </ProjectReference>
+    <ProjectReference Include="\\mac\Home\Documents\CSE687OOD\Projects\RemoteCodeRepository\Repository\Repository\Repository.vcxproj">
+      <Project>{e5ceb6a0-9e06-4c64-9e2d-4d09c4424899}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Repository\NoSqlDb\DateTime\DateTime.h" />

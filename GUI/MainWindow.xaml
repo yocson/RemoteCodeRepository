@@ -88,8 +88,8 @@
                                 </Grid.RowDefinitions>
                                 <Grid Grid.Row="0" Margin="50 50 50 20">
                                     <DockPanel>
-                                        <TextBox Name="fileselect" Height="20" Text="File Selected" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,2,0,1.5" Width="302"></TextBox>
-                                        <Button Content="Select File" HorizontalAlignment="Right" Click="Button_Click" Margin="0,0,0,1" Width="80"></Button>
+                                        <TextBox Name="fileselect" Height="20" Text="File Selected" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,2,0,1.5" Width="302" TextChanged="Back_white"></TextBox>
+                                        <Button Content="Select File" HorizontalAlignment="Right" Click="SelectFile_Button" Margin="0,0,0,1" Width="80"></Button>
                                     </DockPanel>
                                 </Grid>
                                 <Grid Grid.Row="1" Margin="10 0 10 10">
@@ -111,7 +111,7 @@
                                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                             </Grid.ColumnDefinitions>
                                             <Label Grid.Column="0" Content="Author"></Label>
-                                            <TextBox Grid.Column="1"></TextBox>
+                                            <TextBox Name="author_text" Grid.Column="1"></TextBox>
                                         </Grid>
                                         <Grid Grid.Row="1" Margin="0 5">
                                             <Grid.ColumnDefinitions>
@@ -119,7 +119,7 @@
                                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                             </Grid.ColumnDefinitions>
                                             <Label Grid.Column="0" Content="Description"></Label>
-                                            <TextBox Grid.Column="1"></TextBox>
+                                            <TextBox Name="descrip_text" Grid.Column="1"></TextBox>
                                         </Grid>
                                         <Grid Grid.Row="2" Margin="0 5">
                                             <Grid.ColumnDefinitions>
@@ -127,10 +127,10 @@
                                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                             </Grid.ColumnDefinitions>
                                             <Label Grid.Column="0" Content="Category"></Label>
-                                            <TextBox Grid.Column="1"></TextBox>
+                                            <TextBox Name="cate_text" Grid.Column="1"></TextBox>
                                         </Grid>
                                     </Grid>
-                                    <Button Grid.Row="2" Name="checkinbtn" Content="Check-In" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click_Checkin"></Button>
+                                    <Button Grid.Row="2" Name="checkinbtn" Content="Check-In" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click_Checkin" Margin="144,82.5,136,83" Width="208"></Button>
                                 </Grid>
 
                             </Grid>
@@ -189,10 +189,10 @@
                                     </Grid>
                                 </Grid>
                                 <Grid Grid.Column="1" Margin="0,102,0,133">
-                                    <Button Content="=>" Margin="0,100,-1,67.5"></Button>
+                                    <Button Content="=>" Margin="0,130,-2,91.5"></Button>
                                 </Grid>
                                 <StackPanel Grid.Column="2">
-                                    <Label>Current File:</Label>
+                                    <Label>Parent File:</Label>
                                     <ListBox Height="130"></ListBox>
                                     <Button Content="Add dependency" Margin="50"></Button>
                                 </StackPanel>
@@ -277,7 +277,7 @@
                                 <Grid Grid.Row="0" Margin="0 5">
                                     <DockPanel>
                                         <TextBox Name="desselect" Margin="0,0,10,0.5" Width="156"></TextBox>
-                                        <Button Content="select des" Click="Button_Click_1"/>
+                                        <Button Content="select des" Click="SelectDes_Button"/>
                                     </DockPanel>
                                 </Grid>
                                 <Grid Grid.Row="1" Margin="0 5">

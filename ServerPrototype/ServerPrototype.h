@@ -61,6 +61,10 @@ namespace Repository
   using Msg = MsgPassingCommunication::Message;
   using ServerProc = std::function<Msg(Msg)>;
   using MsgDispatcher = std::unordered_map<Key,ServerProc>;
+  using PackageNumber = int;
+  using PackageStatus = std::string;
+  using Key = std::string;
+  using VersionInfo = std::pair<PackageNumber, PackageStatus>;
   
   const SearchPath storageRoot = "../Storage";  // root for all server file storage
   const MsgPassingCommunication::EndPoint serverEndPoint("localhost", 8080);  // listening endpoint
@@ -75,6 +79,8 @@ namespace Repository
     void processMessages();
     void postMessage(MsgPassingCommunication::Message msg);
     MsgPassingCommunication::Message getMessage();
+
+	bool checkAuthor(const std::string& author, const std::string& namesp, const std::string& filename);
     static Dirs getDirs(const SearchPath& path = storageRoot);
     static Files getFiles(const SearchPath& path = storageRoot);
   private:

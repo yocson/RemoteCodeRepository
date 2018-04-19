@@ -522,7 +522,46 @@ namespace WpfApp1
             msg.add("to", CsEndPoint.toString(serverEndPoint));
             msg.add("from", CsEndPoint.toString(endPoint_));
             msg.add("command", "checkIn");
+            msg.add("author", author_text.Text);
+            msg.add("desciption", descrip_text.Text);
+            msg.add("category", cate_text.Text);
+            msg.add("namesp", cate_text.Text);
+            msg.add("filename", System.IO.Path.GetFileNameWithoutExtension(fileselect.Text));
+            if (!validateCheckinInfo(msg)) return;
             translater.postMessage(msg);
+        }
+
+        private bool validateCheckinInfo(CsMessage msg)
+        {
+            bool allFieldSet = true;
+            if (msg.value("author") == "")
+            {
+                author_text.Background = Brushes.Red ;
+                allFieldSet = false;
+            }
+            if (msg.value("desciption") == "")
+            {
+                descrip_text.Background = Brushes.Red;
+                allFieldSet = false;
+            }
+            if (msg.value("category") == "")
+            {
+                cate_text.Background = Brushes.Red;
+                allFieldSet = false;
+            }
+            if (msg.value("filename") == "File Selected")
+            {
+                fileselect.Background = Brushes.Red;
+                allFieldSet = false;
+            }
+            if (!allFieldSet)
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    statusBarText.Text = "Please Fill all Fields!";
+                });
+            }
+            return allFieldSet;
         }
 
         //----< respond to mouse click on checkout button >----------------
@@ -657,7 +696,7 @@ namespace WpfApp1
             Console.Write("  Requirement #3 passed. \n");
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void SelectFile_Button(object sender, RoutedEventArgs e)
         {
             // Create OpenFileDialog 
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
@@ -676,17 +715,19 @@ namespace WpfApp1
             }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void SelectDes_Button(object sender, RoutedEventArgs e)
         {
-            // Create OpenFileDialog 
+            // Create FolderBrowserDialog 
             System.Windows.Forms.FolderBrowserDialog dlg = new System.Windows.Forms.FolderBrowserDialog();
-            //dlg.DefaultExt = ".png";
-            //dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
-
-            // Display OpenFileDialog by calling ShowDialog method 
             dlg.ShowDialog();
             string path = dlg.SelectedPath;
             desselect.Text = path;
+        }
+
+        private void Back_white(object sender, TextChangedEventArgs e)
+        {
+            TextBox t = sender as TextBox;
+            t.Background = Brushes.White;
         }
     }
 }
