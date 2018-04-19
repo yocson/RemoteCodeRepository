@@ -253,6 +253,41 @@ namespace WpfApp1
             };
             addClientProc("checkIn", checkIn);
         }
+
+        private void DispatcherCheckAuthor()
+        {
+            Action<CsMessage> checkAuthor = (CsMessage rcvMsg) =>
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    if (rcvMsg.value("pass") == "1")
+                    {
+                        CsEndPoint serverEndPoint = new CsEndPoint();
+                        serverEndPoint.machineAddress = serverAddr;
+                        serverEndPoint.port = serverPort;
+                        CsMessage msg = new CsMessage();
+                        msg.add("to", CsEndPoint.toString(serverEndPoint));
+                        msg.add("from", CsEndPoint.toString(endPoint_));
+                        msg.add("command", "checkInFile");
+                        msg.add("author", author_text.Text);
+                        msg.add("desciption", descrip_text.Text);
+                        msg.add("category", cate_text.Text);
+                        msg.add("namesp", cate_text.Text);
+                        msg.add("file", System.IO.Path.GetFileNameWithoutExtension(fileselect.Text));
+                        msg.add("filename", System.IO.Path.GetFileNameWithoutExtension(fileselect.Text));
+                        
+                    } else
+                    {
+                        author_text.Background = Brushes.Red;
+                        statusBarText.Text = "Author is wrong";
+                    }
+                    testbox.Items.Insert(0, "Received checkauthor message");
+                    if (testMode) Thread.Sleep(1000);
+                });
+            };
+            addClientProc("checkAuthor", checkAuthor);
+        }
+
         //----< load checkOut processing into dispatcher dictionary >------
 
         private void DispatcherCheckOut()
