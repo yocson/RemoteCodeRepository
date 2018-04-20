@@ -275,7 +275,7 @@ namespace WpfApp1
                         msg.add("category", cate_text.Text);
                         msg.add("namesp", cate_text.Text);
                         msg.add("file", System.IO.Path.GetFileName(fileselect.Text));
-                        msg.add("filename", System.IO.Path.GetFileNameWithoutExtension(fileselect.Text));
+                        msg.add("filename", System.IO.Path.GetFileName(fileselect.Text));
                         string targetPath = "../SendFiles";
                         string destFile = System.IO.Path.Combine(targetPath, System.IO.Path.GetFileName(fileselect.Text));
                         System.IO.File.Copy(fileselect.Text, destFile, true);
@@ -301,6 +301,7 @@ namespace WpfApp1
                     if (rcvMsg.value("canbeCheckIn") == "1")
                     {
                         statusBarText.Text = "The file is checkin sucssesfully.";
+                        ParentFile.Text = rcvMsg.value("namesp") + "_" + rcvMsg.value("filename") + "." + rcvMsg.value("versionnum");
                     }
                     else
                     {
@@ -477,6 +478,9 @@ namespace WpfApp1
             loadDispatcher();
 
             addPath();
+
+            connectbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
         }
         //----< strip off name of first part of path >---------------------
 
@@ -583,12 +587,12 @@ namespace WpfApp1
             CsMessage msg = new CsMessage();
             msg.add("to", CsEndPoint.toString(serverEndPoint));
             msg.add("from", CsEndPoint.toString(endPoint_));
-            msg.add("command", "checkIn");
+            msg.add("command", "checkAuthor");
             msg.add("author", author_text.Text);
             msg.add("desciption", descrip_text.Text);
             msg.add("category", cate_text.Text);
             msg.add("namesp", cate_text.Text);
-            msg.add("filename", System.IO.Path.GetFileNameWithoutExtension(fileselect.Text));
+            msg.add("filename", System.IO.Path.GetFileName(fileselect.Text));
             if (!validateCheckinInfo(msg)) return;
             translater.postMessage(msg);
         }

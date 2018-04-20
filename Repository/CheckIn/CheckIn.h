@@ -87,7 +87,7 @@ namespace Repository
     class CheckIn
     {
     public:
-        using File = DbElement<FileInfo>;
+        using File = DbElement<NoSqlDb::FileInfo>;
 		using FilePath = std::string;
         using PackageNumber = int;
         using PackageStatus = std::string;

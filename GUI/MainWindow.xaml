@@ -32,14 +32,13 @@
             <TabItem Header="Connect">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="80"></RowDefinition>
-                        <RowDefinition Height="80"></RowDefinition>
-                        <RowDefinition Height="80"></RowDefinition>
-                        <RowDefinition Height="80"></RowDefinition>
-                        <RowDefinition Height="80"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" VerticalAlignment="Center" Margin="100 10 100 10">
+                    <Grid Grid.Row="0" VerticalAlignment="Center" Margin="100 100 100 10">
                         <DockPanel>
                             <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Server Address"></Label>
                             <TextBox Name="machineAddressText" Text="localhost" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
@@ -57,7 +56,7 @@
                             <TextBox Name="clientAddrText" Text="localhost" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
                         </DockPanel>
                     </Grid>
-                    <Grid Grid.Row="3" VerticalAlignment="Center" Margin="100 10 100 10">
+                    <Grid Grid.Row="3" VerticalAlignment="Center" Margin="100 10 100 50">
                         <DockPanel>
                             <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Client Port"></Label>
                             <TextBox Name="clientPortText" Text="8082" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
@@ -192,7 +191,11 @@
                                     <Button Content="=>" Margin="0,130,-2,91.5"></Button>
                                 </Grid>
                                 <StackPanel Grid.Column="2">
-                                    <Label>Parent File:</Label>
+                                    <DockPanel>
+                                        <Label FontWeight="Bold">Parent File:</Label>
+                                        <TextBox Name="ParentFile"></TextBox>
+                                    </DockPanel>
+                              
                                     <ListBox Height="130"></ListBox>
                                     <Button Content="Add dependency" Margin="50"></Button>
                                 </StackPanel>
