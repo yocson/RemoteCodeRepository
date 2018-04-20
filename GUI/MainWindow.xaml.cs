@@ -795,5 +795,13 @@ namespace WpfApp1
             TextBox t = sender as TextBox;
             t.Background = Brushes.White;
         }
+
+        private void Add_DepenList_Click(object sender, RoutedEventArgs e)
+        {
+            if (FileList_checkin.SelectedItem != null)
+            {
+                DependList.Items.Insert(0, FileList_checkin.SelectedItem);
+            }
+        }
     }
 }

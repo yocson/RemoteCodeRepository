@@ -188,15 +188,15 @@
                                     </Grid>
                                 </Grid>
                                 <Grid Grid.Column="1" Margin="0,102,0,133">
-                                    <Button Content="=>" Margin="0,130,-2,91.5"></Button>
+                                    <Button Content="=>" Margin="0,130,-2.5,91.5" HorizontalAlignment="Left" Width="22" Click="Add_DepenList_Click"></Button>
                                 </Grid>
-                                <StackPanel Grid.Column="2">
+                                <StackPanel Grid.Column="2" Margin="10, 50, 0, 0">
                                     <DockPanel>
                                         <Label FontWeight="Bold">Parent File:</Label>
                                         <TextBox Name="ParentFile"></TextBox>
                                     </DockPanel>
                               
-                                    <ListBox Height="130"></ListBox>
+                                    <ListBox Name="DependList" Height="130"></ListBox>
                                     <Button Content="Add dependency" Margin="50"></Button>
                                 </StackPanel>
                             </Grid>
