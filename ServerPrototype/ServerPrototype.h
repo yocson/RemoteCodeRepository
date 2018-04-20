@@ -80,6 +80,7 @@ namespace Repository
     void postMessage(MsgPassingCommunication::Message msg);
     MsgPassingCommunication::Message getMessage();
 
+	static bool addDependency(const std::string& depend);
 	static int getVersion(const std::string& namesp, const std::string& filename);
 	static bool checkAuthor(const std::string& author, const std::string& namesp, const std::string& filename);
 	static bool checkInFile(const std::string& author, const std::string& namesp, const std::string& filename, const std::string& filepath, const std::string& descrip);

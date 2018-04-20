@@ -399,6 +399,20 @@ namespace WpfApp1
             };
             addClientProc("viewdata", viewdata);
         }
+
+        private void DispatcherAddDepend()
+        {
+            Action<CsMessage> addDepend = (CsMessage rcvMsg) =>
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    statusBarText.Text = "Received addDpend message";
+                    testbox.Items.Insert(0, "Received addDpend message");
+                    if (testMode) Thread.Sleep(1000);
+                });
+            };
+            addClientProc("addDepend", addDepend);
+        }
         //----< load sendfile processing into dispatcher dictionary >------
 
         private void DispatcherSendFile()
@@ -432,6 +446,7 @@ namespace WpfApp1
             DispatcherViewData();
             DispatcherCheckAuthor();
             DispatcherCheckInFile();
+            DispatcherAddDepend();
         }
 
         //----< add all path to pathtextblocks >---------------------------
@@ -801,6 +816,26 @@ namespace WpfApp1
             if (FileList_checkin.SelectedItem != null)
             {
                 DependList.Items.Insert(0, FileList_checkin.SelectedItem);
+            }
+        }
+
+        private void Add_Depend(object sender, RoutedEventArgs e)
+        {
+            CsEndPoint serverEndPoint = new CsEndPoint();
+            serverAddr = machineAddressText.Text;
+            serverPort = Int32.Parse(portText.Text);
+            serverEndPoint.machineAddress = serverAddr;
+            serverEndPoint.port = serverPort;
+            CsMessage msg = new CsMessage();
+            msg.add("to", CsEndPoint.toString(serverEndPoint));
+            msg.add("from", CsEndPoint.toString(endPoint_));
+            msg.add("command", "addDepend");
+            msg.add("parent", ParentFile.Text);
+            foreach (var depend in DependList.Items)
+            {
+                msg.add("depend", depend.ToString());
+                translater.postMessage(msg);
+                msg.remove("depend");
             }
         }
     }

@@ -197,7 +197,7 @@
                                     </DockPanel>
                               
                                     <ListBox Name="DependList" Height="130"></ListBox>
-                                    <Button Content="Add dependency" Margin="50"></Button>
+                                    <Button Content="Add dependency" Margin="50" Click="Add_Depend"></Button>
                                 </StackPanel>
                             </Grid>
                         </TabItem>
