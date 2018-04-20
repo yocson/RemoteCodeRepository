@@ -81,6 +81,7 @@ namespace Repository
     MsgPassingCommunication::Message getMessage();
 
 	static bool checkAuthor(const std::string& author, const std::string& namesp, const std::string& filename);
+	static bool checkInFile(const std::string& author, const std::string& namesp, const std::string& filename, const std::string& filepath, const std::string& descrip);
     static Dirs getDirs(const SearchPath& path = storageRoot);
     static Files getFiles(const SearchPath& path = storageRoot);
   private:

@@ -271,7 +271,7 @@ namespace WpfApp1
                         msg.add("from", CsEndPoint.toString(endPoint_));
                         msg.add("command", "checkInFile");
                         msg.add("author", author_text.Text);
-                        msg.add("desciption", descrip_text.Text);
+                        msg.add("description", descrip_text.Text);
                         msg.add("category", cate_text.Text);
                         msg.add("namesp", cate_text.Text);
                         msg.add("file", System.IO.Path.GetFileName(fileselect.Text));
@@ -298,7 +298,16 @@ namespace WpfApp1
             {
                 Dispatcher.Invoke(() =>
                 {
-                    statusBarText.Text = "Received a checkin file msg";
+                    if (rcvMsg.value("canbeCheckIn") == "1")
+                    {
+                        statusBarText.Text = "The file is checkin sucssesfully.";
+                    }
+                    else
+                    {
+                        // file is close-pending, please close first.
+                        statusBarText.Text = "File is close-pending, please close it first.";
+
+                    }
                 });
             };
             addClientProc("checkInFile", checkInFile);
