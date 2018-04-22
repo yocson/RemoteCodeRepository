@@ -195,7 +195,7 @@
                                         <Label FontWeight="Bold">Parent File:</Label>
                                         <TextBox Name="ParentFile"></TextBox>
                                     </DockPanel>
-                              
+
                                     <ListBox Name="DependList" Height="130"></ListBox>
                                     <Button Content="Add dependency" Margin="50" Click="Add_Depend"></Button>
                                 </StackPanel>
@@ -258,7 +258,7 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Grid.Row="0" Padding="10 10" FontWeight="Bold" FontSize="14">Files</TextBlock>
                                 <Border Grid.Row="1" BorderThickness="10" Background="#fff">
-                                    <ListBox x:Name="FileList_checkout" MouseDoubleClick="FileList_MouseDoubleClick" SelectionChanged="FileList_checkout_SelectionChanged"></ListBox>
+                                    <ListBox x:Name="FileList_checkout" MouseDoubleClick="FileList_MouseDoubleClick" SelectionChanged="FileList_SelectionChanged"></ListBox>
                                 </Border>
                             </Grid>
                         </Grid>
@@ -272,7 +272,7 @@
                             <Grid Grid.Row="0">
                                 <StackPanel>
                                     <Label FontWeight="Bold" Content="File metadata:"></Label>
-                                    <ListBox Name="MetaData_List" Height="178"></ListBox>
+                                    <ListBox Name="MetaData_checkout_List" Height="178"></ListBox>
                                 </StackPanel>
                             </Grid>
                             <Grid Grid.Row="1">
@@ -287,7 +287,7 @@
                             </Grid>
                             <Grid Grid.Row="2">
                                 <StackPanel>
-                                    <Label FontWeight="Bold">Checkout status: </Label>
+                                    <Label FontWeight="Bold">Checkout status:</Label>
                                     <ListBox Name="checkout_Status" Height="170"></ListBox>
                                 </StackPanel>
                             </Grid>
@@ -350,7 +350,7 @@
                                         </Grid.RowDefinitions>
                                         <TextBlock Grid.Row="0" Padding="10 10" FontWeight="Bold" FontSize="14">Files</TextBlock>
                                         <Border Grid.Row="1" BorderThickness="10" Background="#000">
-                                            <ListBox x:Name="FileList_browse" MouseDoubleClick="FileList_MouseDoubleClick"></ListBox>
+                                            <ListBox x:Name="FileList_browse" MouseDoubleClick="FileList_MouseDoubleClick" SelectionChanged="FileList_SelectionChanged"></ListBox>
                                         </Border>
                                     </Grid>
                                 </Grid>
@@ -367,16 +367,15 @@
                                             <RowDefinition Height="*"></RowDefinition>
                                         </Grid.RowDefinitions>
                                         <Grid Grid.Row="2">
-                                            <Button Content="Close File" Width="100" Margin="10 0 10 0"></Button>
+                                            <Button Content="Close File" Width="100" Margin="77,0" Click="Close_file_btn"/>
                                         </Grid>
                                         <Grid Grid.Row="0" Margin="10 10 10 10">
                                             <StackPanel>
-                                                <Label FontWeight="Bold" Content="File MetaData"></Label>
-                                                <ListBox Height="154"></ListBox>
+                                                <Label FontWeight="Bold" Content="File MetaData:"></Label>
+                                                <ListBox Name="MetaData_browse_List" Height="154"></ListBox>
                                             </StackPanel>
                                         </Grid>
                                     </Grid>
-                                    <Button Grid.Row="2" Name="browsebtn" Content="Browse" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click_Browse"></Button>
                                 </Grid>
                             </Grid>
                         </TabItem>

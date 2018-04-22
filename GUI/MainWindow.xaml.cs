@@ -444,6 +444,7 @@ namespace WpfApp1
                 Dispatcher.Invoke(() =>
                 {
                     testbox.Items.Insert(0, "recevie " + filename + " meatadata msg");
+                    ListBox MetaData_List = (rcvMsg.value("source") != "FileList_checkout") ? MetaData_browse_List : MetaData_checkout_List;
                     MetaData_List.Items.Insert(0, "status: " + rcvMsg.value("status"));
                     MetaData_List.Items.Insert(0, "Version: " + rcvMsg.value("version"));
                     MetaData_List.Items.Insert(0, "Description: " + rcvMsg.value("description"));
@@ -866,7 +867,7 @@ namespace WpfApp1
             }
         }
 
-        private void FileList_checkout_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void FileList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListBox it = sender as ListBox;
 
@@ -879,7 +880,23 @@ namespace WpfApp1
             msg.add("to", CsEndPoint.toString(serverEndPoint));
             msg.add("from", CsEndPoint.toString(endPoint_));
             msg.add("command", "viewMetaData");
+            msg.add("source", it.Name);
             msg.add("filename", it.SelectedItem.ToString());
+            translater.postMessage(msg);
+        }
+
+        private void Close_file_btn(object sender, RoutedEventArgs e)
+        {
+            CsEndPoint serverEndPoint = new CsEndPoint();
+            serverAddr = machineAddressText.Text;
+            serverPort = Int32.Parse(portText.Text);
+            serverEndPoint.machineAddress = serverAddr;
+            serverEndPoint.port = serverPort;
+            CsMessage msg = new CsMessage();
+            msg.add("to", CsEndPoint.toString(serverEndPoint));
+            msg.add("from", CsEndPoint.toString(endPoint_));
+            msg.add("command", "closeFile");
+            msg.add("filename", FileList_browse.SelectedItem.ToString());
             translater.postMessage(msg);
         }
     }
