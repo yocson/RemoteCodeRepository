@@ -367,7 +367,7 @@
                                             <RowDefinition Height="*"></RowDefinition>
                                         </Grid.RowDefinitions>
                                         <Grid Grid.Row="2">
-                                            <Button Content="Close File" Width="100" Margin="77,0" Click="Close_file_btn"/>
+                                            <Button Content="Close File" Width="100" Click="Close_file_btn"/>
                                         </Grid>
                                         <Grid Grid.Row="0" Margin="10 10 10 10">
                                             <StackPanel>

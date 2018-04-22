@@ -80,7 +80,7 @@ namespace Repository
     void processMessages();
     void postMessage(MsgPassingCommunication::Message msg);
     MsgPassingCommunication::Message getMessage();
-
+	static bool closeFile(const std::string& namesp, const std::string& filename);
 	static FileElem getElem(const Key& key);
 	static bool addDependency(const std::string& depend);
 	static VersionInfo getVersion(const std::string& namesp, const std::string& filename);

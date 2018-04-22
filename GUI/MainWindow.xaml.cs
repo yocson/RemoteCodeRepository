@@ -404,6 +404,26 @@ namespace WpfApp1
             addClientProc("viewdata", viewdata);
         }
 
+        private void DispatcherCloseFile()
+        {
+            Action<CsMessage> closeFile = (CsMessage rcvMsg) =>
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    if (rcvMsg.value("closed") == "1")
+                    {
+                        statusBarText.Text = "closeFile sucssesfully";
+                    } else
+                    {
+                        statusBarText.Text = "closeFile failed"; 
+                    }
+                    testbox.Items.Insert(0, "Received closeFile message");
+                    if (testMode) Thread.Sleep(1000);
+                });
+            };
+            addClientProc("closeFile", closeFile);
+        }
+
         private void DispatcherAddDepend()
         {
             Action<CsMessage> addDepend = (CsMessage rcvMsg) =>
@@ -472,6 +492,7 @@ namespace WpfApp1
             DispatcherCheckInFile();
             DispatcherAddDepend();
             DispatcherViewMetaData();
+            DispatcherCloseFile();
         }
 
         //----< add all path to pathtextblocks >---------------------------
@@ -798,8 +819,8 @@ namespace WpfApp1
             checkinbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             Console.Write("  Simulate Click checkOut button \n");
             checkoutbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-            Console.Write("  Simulate Click browse button \n");
-            browsebtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            //Console.Write("  Simulate Click browse button \n");
+            //browsebtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             //Console.Write("  Simulate Click viewdata button \n");
             //viewdatabtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             Console.Write("  Requirement #3 passed. \n");
