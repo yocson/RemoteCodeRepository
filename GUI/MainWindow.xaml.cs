@@ -322,8 +322,12 @@ namespace WpfApp1
             {
                 Dispatcher.Invoke(() =>
                 {
+                    string targetPath = desselect.Text;
+                    string destFile = System.IO.Path.Combine(targetPath, rcvMsg.value("file"));
                     statusBarText.Text = "Received checkout messages";
                     testbox.Items.Insert(0, "Received checkout message");
+                    System.IO.File.Copy("../SaveFiles/" + rcvMsg.value("file"), destFile, true);
+                    checkout_Status.Items.Insert(0, "Checked out " + rcvMsg.value("file"));
                     if (testMode) Thread.Sleep(1000);
                 });
             };
@@ -432,6 +436,25 @@ namespace WpfApp1
             addClientProc("sendFile", sendFile);
         }
 
+        private void DispatcherViewMetaData()
+        {
+            Action<CsMessage> viewMetaData = (CsMessage rcvMsg) =>
+            {
+                string filename = rcvMsg.value("filename");
+                Dispatcher.Invoke(() =>
+                {
+                    testbox.Items.Insert(0, "recevie " + filename + " meatadata msg");
+                    MetaData_List.Items.Insert(0, "status: " + rcvMsg.value("status"));
+                    MetaData_List.Items.Insert(0, "Version: " + rcvMsg.value("version"));
+                    MetaData_List.Items.Insert(0, "Description: " + rcvMsg.value("description"));
+                    MetaData_List.Items.Insert(0, "NameSapce: " + rcvMsg.value("namesp"));
+                    MetaData_List.Items.Insert(0, "Author: " + rcvMsg.value("author"));
+                    MetaData_List.Items.Insert(0, "FileName: " + rcvMsg.value("filename"));
+                });
+            };
+            addClientProc("viewMetaData", viewMetaData);
+        }
+
         //----< load all dispatcher processing >---------------------------
 
         private void loadDispatcher()
@@ -447,6 +470,7 @@ namespace WpfApp1
             DispatcherCheckAuthor();
             DispatcherCheckInFile();
             DispatcherAddDepend();
+            DispatcherViewMetaData();
         }
 
         //----< add all path to pathtextblocks >---------------------------
@@ -656,6 +680,9 @@ namespace WpfApp1
             msg.add("to", CsEndPoint.toString(serverEndPoint));
             msg.add("from", CsEndPoint.toString(endPoint_));
             msg.add("command", "checkOut");
+            msg.add("with_depend", with_depend_check.IsChecked.ToString());
+            msg.add("filename", FileList_checkout.SelectedItem.ToString());
+            msg.add("filepath", "../" + PathTextBlock_checkout.Text + "/");
             translater.postMessage(msg);
         }
 
@@ -711,7 +738,7 @@ namespace WpfApp1
             CsMessage msg = new CsMessage();
             msg.add("to", CsEndPoint.toString(serverEndPoint));
             msg.add("from", CsEndPoint.toString(endPoint_));
-            msg.add("command", "viewdata");
+            msg.add("command", "viewMetaData");
             translater.postMessage(msg);
         }
 
@@ -772,8 +799,8 @@ namespace WpfApp1
             checkoutbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             Console.Write("  Simulate Click browse button \n");
             browsebtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-            Console.Write("  Simulate Click viewdata button \n");
-            viewdatabtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            //Console.Write("  Simulate Click viewdata button \n");
+            //viewdatabtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             Console.Write("  Requirement #3 passed. \n");
         }
 
@@ -837,6 +864,23 @@ namespace WpfApp1
                 translater.postMessage(msg);
                 msg.remove("depend");
             }
+        }
+
+        private void FileList_checkout_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListBox it = sender as ListBox;
+
+            CsEndPoint serverEndPoint = new CsEndPoint();
+            serverAddr = machineAddressText.Text;
+            serverPort = Int32.Parse(portText.Text);
+            serverEndPoint.machineAddress = serverAddr;
+            serverEndPoint.port = serverPort;
+            CsMessage msg = new CsMessage();
+            msg.add("to", CsEndPoint.toString(serverEndPoint));
+            msg.add("from", CsEndPoint.toString(endPoint_));
+            msg.add("command", "viewMetaData");
+            msg.add("filename", it.SelectedItem.ToString());
+            translater.postMessage(msg);
         }
     }
 }

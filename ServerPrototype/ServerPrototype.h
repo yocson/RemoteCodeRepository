@@ -54,6 +54,7 @@ namespace Repository
 {
   using File = std::string;
   using Files = std::vector<File>;
+  using FileElem = NoSqlDb::DbElement<NoSqlDb::FileInfo>;
   using Dir = std::string;
   using Dirs = std::vector<Dir>;
   using SearchPath = std::string;
@@ -80,8 +81,9 @@ namespace Repository
     void postMessage(MsgPassingCommunication::Message msg);
     MsgPassingCommunication::Message getMessage();
 
+	static FileElem getElem(const Key& key);
 	static bool addDependency(const std::string& depend);
-	static int getVersion(const std::string& namesp, const std::string& filename);
+	static VersionInfo getVersion(const std::string& namesp, const std::string& filename);
 	static bool checkAuthor(const std::string& author, const std::string& namesp, const std::string& filename);
 	static bool checkInFile(const std::string& author, const std::string& namesp, const std::string& filename, const std::string& filepath, const std::string& descrip);
     static Dirs getDirs(const SearchPath& path = storageRoot);

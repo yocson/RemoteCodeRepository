@@ -258,48 +258,38 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Grid.Row="0" Padding="10 10" FontWeight="Bold" FontSize="14">Files</TextBlock>
                                 <Border Grid.Row="1" BorderThickness="10" Background="#fff">
-                                    <ListBox x:Name="FileList_checkout" MouseDoubleClick="FileList_MouseDoubleClick"></ListBox>
+                                    <ListBox x:Name="FileList_checkout" MouseDoubleClick="FileList_MouseDoubleClick" SelectionChanged="FileList_checkout_SelectionChanged"></ListBox>
                                 </Border>
                             </Grid>
                         </Grid>
                         <Grid Grid.Column="1" Margin="10 0 10 10">
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
                                 <RowDefinition Height="auto"></RowDefinition>
-                                <RowDefinition Height="250"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Label Grid.Row="0" FontWeight="Bold" Content="Checkout Destination:"></Label>
+                            <Grid Grid.Row="0">
+                                <StackPanel>
+                                    <Label FontWeight="Bold" Content="File metadata:"></Label>
+                                    <ListBox Name="MetaData_List" Height="178"></ListBox>
+                                </StackPanel>
+                            </Grid>
                             <Grid Grid.Row="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"></RowDefinition>
-                                    <RowDefinition Height="auto"></RowDefinition>
-                                    <RowDefinition Height="auto"></RowDefinition>
-                                    <RowDefinition Height="*"></RowDefinition>
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Row="0" Margin="0 5">
+                                <StackPanel>
+                                    <Label FontWeight="Bold" Content="Checkout Destination:"></Label>
                                     <DockPanel>
                                         <TextBox Name="desselect" Margin="0,0,10,0.5" Width="156"></TextBox>
                                         <Button Content="select des" Click="SelectDes_Button"/>
                                     </DockPanel>
-                                </Grid>
-                                <Grid Grid.Row="1" Margin="0 5">
-                                    <CheckBox Content="with dependencies"></CheckBox>
-                                </Grid>
-                                <Grid Grid.Row="2" Margin="0 5">
-                                    <Label FontWeight="Bold" Content="File metadata:"></Label>
-                                </Grid>
-                                <Grid Grid.Row="3" Margin="0 5">
-                                    <ListBox/>
-                                </Grid>
+                                    <CheckBox Name="with_depend_check" Content="with dependencies" HorizontalAlignment="Right" Width="237"></CheckBox>
+                                </StackPanel>
                             </Grid>
                             <Grid Grid.Row="2">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"></RowDefinition>
-                                    <RowDefinition Height="*"></RowDefinition>
-                                </Grid.RowDefinitions>
-                                <Label Grid.Row="0">Checkout status</Label>
-                                <ListBox Grid.Row="1" Name="viewdatabtn"></ListBox>
+                                <StackPanel>
+                                    <Label FontWeight="Bold">Checkout status: </Label>
+                                    <ListBox Name="checkout_Status" Height="170"></ListBox>
+                                </StackPanel>
                             </Grid>
                             <Button Grid.Row="3" Name="checkoutbtn" Content="Check-out" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click_Checkout"></Button>
                         </Grid>
@@ -372,18 +362,18 @@
                                     </Grid.RowDefinitions>
                                     <Grid Grid.Row="0">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"></RowDefinition>
                                             <RowDefinition Height="200"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
                                             <RowDefinition Height="*"></RowDefinition>
                                         </Grid.RowDefinitions>
                                         <Grid Grid.Row="2">
                                             <Button Content="Close File" Width="100" Margin="10 0 10 0"></Button>
                                         </Grid>
                                         <Grid Grid.Row="0" Margin="10 10 10 10">
-                                            <Label FontWeight="Bold" Content="File Info:"></Label>
-                                        </Grid>
-                                        <Grid Grid.Row="1" Margin="10 0 10 10">
-                                            <ListBox></ListBox>
+                                            <StackPanel>
+                                                <Label FontWeight="Bold" Content="File MetaData"></Label>
+                                                <ListBox Height="154"></ListBox>
+                                            </StackPanel>
                                         </Grid>
                                     </Grid>
                                     <Button Grid.Row="2" Name="browsebtn" Content="Browse" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click_Browse"></Button>
