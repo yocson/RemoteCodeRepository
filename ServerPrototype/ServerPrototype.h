@@ -80,9 +80,10 @@ namespace Repository
     void processMessages();
     void postMessage(MsgPassingCommunication::Message msg);
     MsgPassingCommunication::Message getMessage();
+	static void checkOut(const std::string& namesp, const std::string& filename, const std::string& des, bool withdepend, int versionnum);
 	static bool closeFile(const std::string& namesp, const std::string& filename);
-	static FileElem getElem(const Key& key);
-	static bool addDependency(const std::string& depend);
+	static FileElem& getElem(const Key& key);
+	static bool addDependency(const Key& key, const std::string& depend);
 	static VersionInfo getVersion(const std::string& namesp, const std::string& filename);
 	static bool checkAuthor(const std::string& author, const std::string& namesp, const std::string& filename);
 	static bool checkInFile(const std::string& author, const std::string& namesp, const std::string& filename, const std::string& filepath, const std::string& descrip);

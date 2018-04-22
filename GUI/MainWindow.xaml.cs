@@ -270,12 +270,12 @@ namespace WpfApp1
                         msg.add("to", CsEndPoint.toString(serverEndPoint));
                         msg.add("from", CsEndPoint.toString(endPoint_));
                         msg.add("command", "checkInFile");
-                        msg.add("author", author_text.Text);
-                        msg.add("description", descrip_text.Text);
-                        msg.add("category", cate_text.Text);
-                        msg.add("namesp", cate_text.Text);
-                        msg.add("file", System.IO.Path.GetFileName(fileselect.Text));
-                        msg.add("filename", System.IO.Path.GetFileName(fileselect.Text));
+                        msg.add("author", rcvMsg.value("author"));
+                        msg.add("description", rcvMsg.value("desciption"));
+                        msg.add("category", rcvMsg.value("category"));
+                        msg.add("namesp", rcvMsg.value("namesp"));
+                        msg.add("file", rcvMsg.value("filename"));
+                        msg.add("filename", rcvMsg.value("filename"));
                         string targetPath = "../SendFiles";
                         string destFile = System.IO.Path.Combine(targetPath, System.IO.Path.GetFileName(fileselect.Text));
                         System.IO.File.Copy(fileselect.Text, destFile, true);
@@ -465,12 +465,20 @@ namespace WpfApp1
                 {
                     testbox.Items.Insert(0, "recevie " + filename + " meatadata msg");
                     ListBox MetaData_List = (rcvMsg.value("source") != "FileList_checkout") ? MetaData_browse_List : MetaData_checkout_List;
+                    MetaData_List.Items.Clear();
+                    int dependnum = Int32.Parse(rcvMsg.value("dependnum"));
+                    for (int i = 0; i < dependnum; ++i)
+                    {
+                        MetaData_List.Items.Insert(0, "  " + rcvMsg.value("depend" + i.ToString()));
+                    }
+                    if (dependnum != 0) MetaData_List.Items.Insert(0, "Dependencies: ");
                     MetaData_List.Items.Insert(0, "status: " + rcvMsg.value("status"));
                     MetaData_List.Items.Insert(0, "Version: " + rcvMsg.value("version"));
                     MetaData_List.Items.Insert(0, "Description: " + rcvMsg.value("description"));
                     MetaData_List.Items.Insert(0, "NameSapce: " + rcvMsg.value("namesp"));
                     MetaData_List.Items.Insert(0, "Author: " + rcvMsg.value("author"));
                     MetaData_List.Items.Insert(0, "FileName: " + rcvMsg.value("filename"));
+
                 });
             };
             addClientProc("viewMetaData", viewMetaData);
@@ -542,6 +550,10 @@ namespace WpfApp1
 
             connectbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
 
+            mock_checkin("\\\\Mac\\Home\\Documents\\forms.txt", "Cheng", "TestFile1", "Test");
+            mock_checkin("\\\\Mac\\Home\\Documents\\folder_flatten.py", "Cheng", "TestFile2", "Test");
+            mock_checkin("\\\\Mac\\Home\\Documents\\forms_for_parsing.txt", "Cheng", "TestFile3", "Test");
+            mock_checkin("\\\\Mac\\Home\\Documents\\HW3_submit.txt", "Cheng", "TestFile4", "Test");
         }
         //----< strip off name of first part of path >---------------------
 
@@ -919,6 +931,16 @@ namespace WpfApp1
             msg.add("command", "closeFile");
             msg.add("filename", FileList_browse.SelectedItem.ToString());
             translater.postMessage(msg);
+        }
+
+        private void mock_checkin(string filepath, string author, string descrip, string cate)
+        {
+            fileselect.Text = filepath;
+            author_text.Text = author;
+            descrip_text.Text = descrip;
+            cate_text.Text = cate;
+            checkinbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            Thread.Sleep(500);
         }
     }
 }
