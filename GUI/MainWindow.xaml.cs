@@ -966,5 +966,10 @@ namespace WpfApp1
             checkinbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             Thread.Sleep(500);
         }
+
+        private void add_condi_click(object sender, RoutedEventArgs e)
+        {
+            string condition = condiNameSele.SelectedItem.ToString();
+        }
     }
 }
