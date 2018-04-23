@@ -394,33 +394,35 @@
                                     </Grid.RowDefinitions>
                                     <Grid Grid.Row="0">
                                         <DockPanel Margin="20 10">
-                                            <ComboBox Name="condiNameSele" Text="Name">
+                                            <ComboBox Name="condiNameSele" IsEditable="true" IsReadOnly="true" Text="Name">
                                                 <ComboBoxItem>Name</ComboBoxItem>
                                                 <ComboBoxItem>Author</ComboBoxItem>
                                                 <ComboBoxItem>Description</ComboBoxItem>
                                                 <ComboBoxItem>Category</ComboBoxItem>
                                                 <ComboBoxItem>Namespace</ComboBoxItem>
                                             </ComboBox>
-                                            <ComboBox Name="condiMatchSele" Text="Include">
-                                                <ComboBoxItem>Include</ComboBoxItem>
+                                            <ComboBox Name="condiMatchSele" IsEditable="true" IsReadOnly="true" Text="includes">
+                                                <ComboBoxItem>includes</ComboBoxItem>
                                                 <ComboBoxItem>is exact</ComboBoxItem>
                                             </ComboBox>
-                                            <TextBox Text=" Please enter query conditions..."  Margin="10,0,10,0.5" Width="266"></TextBox>
+                                            <TextBox Name="Condtion_text"  Margin="10,0,10,0.5" Width="257"></TextBox>
                                             <Button Name="add_condi_btn" Content="Add" HorizontalAlignment="Right" Margin="0,0,0,0.5" Width="52" Click="add_condi_click"></Button>
                                         </DockPanel>
                                     </Grid>
                                     <Grid Grid.Row="1" Margin="10 10 10 10">
                                         <StackPanel>
                                             <Label FontWeight="Bold" Content="Query conditions:"></Label>
-                                            <ListBox Height="94"></ListBox>
-                                            <CheckBox Content="Query on the result" Margin="0 5 10 0"></CheckBox>
-                                            <Button  Name="browsebtn2" Content="Query" Margin="10 5 10 -10" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click_Browse"></Button>
+                                            <ListView Name="Condtion_List" Height="94"></ListView>
+                                            <!--<CheckBox Content="Query on the result" Margin="0 5 10 0"></CheckBox>-->
+                                            <RadioButton GroupName="Query" Content="Add Query" IsChecked="True"/>
+                                            <RadioButton GroupName="Query" Content="Or Query" />
+                                            <Button Name="querybtn" Content="Query" Margin="10 5 10 -10" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click_Query"></Button>
                                         </StackPanel>
                                     </Grid>
                                     <Grid Grid.Row="2" Margin="10 0 10 10">
                                         <StackPanel>
                                             <Label FontWeight="Bold" Content="Query result:"></Label>
-                                            <ListBox Height="214"></ListBox>
+                                            <ListBox Height="200"></ListBox>
                                         </StackPanel>
                                     </Grid>
                                 </Grid>

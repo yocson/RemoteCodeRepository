@@ -79,7 +79,7 @@ namespace WpfApp1
         private Translater translater;
         private CsEndPoint endPoint_;
         private Thread rcvThrd = null;
-        private Dictionary<string, Action<CsMessage>> dispatcher_ 
+        private Dictionary<string, Action<CsMessage>> dispatcher_
           = new Dictionary<string, Action<CsMessage>>();
         private Dictionary<string, TextBlock> pathTextBlock_
             = new Dictionary<string, TextBlock>();
@@ -92,7 +92,8 @@ namespace WpfApp1
 
         private void processMessages()
         {
-            ThreadStart thrdProc = () => {
+            ThreadStart thrdProc = () =>
+            {
                 while (true)
                 {
                     CsMessage msg = translater.getMessage();
@@ -103,10 +104,10 @@ namespace WpfApp1
                             dispatcher_[msgId].Invoke(msg);
                     }
                 }
-          };
-          rcvThrd = new Thread(thrdProc);
-          rcvThrd.IsBackground = true;
-          rcvThrd.Start();
+            };
+            rcvThrd = new Thread(thrdProc);
+            rcvThrd.IsBackground = true;
+            rcvThrd.Start();
         }
         //----< function dispatched by child thread to main thread >-------
 
@@ -140,7 +141,7 @@ namespace WpfApp1
         }
 
         //----< function determing which filelist >-------
-        
+
         private ListBox whichFileList(string listname)
         {
             if (listname == "DirList_checkin")
@@ -181,7 +182,7 @@ namespace WpfApp1
             {
                 Action clrDirs = () =>
                 {
-                    clearDirs(whichDirList(rcvMsg.value("listname")));    
+                    clearDirs(whichDirList(rcvMsg.value("listname")));
                 };
                 Dispatcher.Invoke(clrDirs, new Object[] { });
                 var enumer = rcvMsg.attributes.GetEnumerator();
@@ -192,11 +193,11 @@ namespace WpfApp1
                     string key = enumer.Current.Key;
                     if (key.Contains("dir"))
                     {
-                    Action<string> doDir = (string dir) =>
-                    {
-                        addDir(dir, li);
-                    };
-                    Dispatcher.Invoke(doDir, new Object[] { enumer.Current.Value });
+                        Action<string> doDir = (string dir) =>
+                        {
+                            addDir(dir, li);
+                        };
+                        Dispatcher.Invoke(doDir, new Object[] { enumer.Current.Value });
                     }
                 }
                 Action insertUp = () =>
@@ -221,7 +222,7 @@ namespace WpfApp1
                 };
                 Dispatcher.Invoke(clrFiles, new Object[] { });
                 var enumer = rcvMsg.attributes.GetEnumerator();
-                
+
                 while (enumer.MoveNext())
                 {
                     string key = enumer.Current.Key;
@@ -236,7 +237,7 @@ namespace WpfApp1
 
                 }
             };
-          addClientProc("getFiles", getFiles);
+            addClientProc("getFiles", getFiles);
         }
         //----< load checkIn processing into dispatcher dictionary >------
 
@@ -281,7 +282,8 @@ namespace WpfApp1
                         System.IO.File.Copy(fileselect.Text, destFile, true);
                         translater.postMessage(msg);
                     }
-                    else {
+                    else
+                    {
                         author_text.Background = Brushes.Red;
                         statusBarText.Text = "Author is wrong";
                     }
@@ -358,18 +360,18 @@ namespace WpfApp1
         }
         //----< load browse processing into dispatcher dictionary >------
 
-        private void DispatcherBrowse()
+        private void DispatcherQuery()
         {
-            Action<CsMessage> browse = (CsMessage rcvMsg) =>
+            Action<CsMessage> query = (CsMessage rcvMsg) =>
             {
                 Dispatcher.Invoke(() =>
                 {
-                    statusBarText.Text = "Received browse messages";
-                    testbox.Items.Insert(0, "Received browse message");
+                    statusBarText.Text = "Received query messages";
+                    testbox.Items.Insert(0, "Received query message");
                     if (testMode) Thread.Sleep(1000);
                 });
             };
-            addClientProc("browse", browse);
+            addClientProc("query", query);
         }
 
         //----< load connect processing into dispatcher dictionary >------
@@ -436,9 +438,10 @@ namespace WpfApp1
                     if (rcvMsg.value("closed") == "1")
                     {
                         statusBarText.Text = "closeFile sucssesfully";
-                    } else
+                    }
+                    else
                     {
-                        statusBarText.Text = "closeFile failed"; 
+                        statusBarText.Text = "closeFile failed";
                     }
                     testbox.Items.Insert(0, "Received closeFile message");
                     if (testMode) Thread.Sleep(1000);
@@ -515,7 +518,7 @@ namespace WpfApp1
             DispatcherLoadGetFiles();
             DispatcherCheckIn();
             DispatcherCheckOut();
-            DispatcherBrowse();
+            DispatcherQuery();
             DispatcherSendFile();
             DispatcherConnect();
             DispatcherViewData();
@@ -611,14 +614,14 @@ namespace WpfApp1
             /*Console.Write(dir.Name);*/
 
             pathStack_ = Select_List(dir.Name);
-   
+
             if (dir.SelectedItem == null)
             {
                 return;
             }
             string selectedDir = (string)dir.SelectedItem;
             string path;
-            if(selectedDir == "..")
+            if (selectedDir == "..")
             {
                 if (pathStack_.Count > 1)  // don't pop off "Storage"
                     pathStack_.Pop();
@@ -632,7 +635,7 @@ namespace WpfApp1
             }
             // display path in Dir TextBlcok
             pathTextBlock_[dir.Name].Text = removeFirstDir(pathStack_.Peek());
-      
+
             // build message to get dirs and post it
             CsEndPoint serverEndPoint = new CsEndPoint();
             serverEndPoint.machineAddress = serverAddr;
@@ -644,7 +647,7 @@ namespace WpfApp1
             msg.add("path", pathStack_.Peek());
             msg.add("listname", dir.Name);
             translater.postMessage(msg);
-      
+
             // build message to get files and post it
             msg.remove("command");
             msg.add("command", "getFiles");
@@ -656,7 +659,7 @@ namespace WpfApp1
         private void FileList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ListBox it = sender as ListBox;
-//          Console.Write(it.Name);
+            //          Console.Write(it.Name);
             pathStack_ = Select_List(it.Name);
             if (it != null && it.SelectedItem != null)
             {
@@ -698,7 +701,7 @@ namespace WpfApp1
             bool allFieldSet = true;
             if (msg.value("author") == "")
             {
-                author_text.Background = Brushes.Red ;
+                author_text.Background = Brushes.Red;
                 allFieldSet = false;
             }
             if (msg.value("desciption") == "")
@@ -746,7 +749,7 @@ namespace WpfApp1
 
         //----< respond to mouse click on browse button >----------------
 
-        private void Button_Click_Browse(object sender, RoutedEventArgs e)
+        private void Button_Click_Query(object sender, RoutedEventArgs e)
         {
             CsEndPoint serverEndPoint = new CsEndPoint();
             serverEndPoint.machineAddress = serverAddr;
@@ -754,7 +757,18 @@ namespace WpfApp1
             CsMessage msg = new CsMessage();
             msg.add("to", CsEndPoint.toString(serverEndPoint));
             msg.add("from", CsEndPoint.toString(endPoint_));
-            msg.add("command", "browse");
+            msg.add("command", "query");
+            ItemCollection conditions = Condtion_List.Items;
+            int num = Condtion_List.Items.Count;
+            msg.add("num", num.ToString());
+
+            for (int i = 0; i < num; ++i)
+            {
+                DockPanel con = (DockPanel)conditions.GetItemAt(i);
+                msg.add("ConName" + i.ToString(), (string)((Label)con.Children[0]).Content);
+                msg.add("MatchCon" + i.ToString(), (string)((Label)con.Children[1]).Content);
+                msg.add("Condition" + i.ToString(), (string)((Label)con.Children[2]).Content);
+            }
             translater.postMessage(msg);
         }
 
@@ -969,7 +983,27 @@ namespace WpfApp1
 
         private void add_condi_click(object sender, RoutedEventArgs e)
         {
-            string condition = condiNameSele.SelectedItem.ToString();
+            string condition = condiNameSele.Text + " ";
+            condition += condiMatchSele.Text;
+            condition += " ";
+            condition += Condtion_text.Text;
+
+            DockPanel dk = new DockPanel();
+            Label nam = new Label();
+            nam.Content = condiNameSele.Text;
+            nam.Width = 80;
+            dk.Children.Add(nam);
+            Label mat = new Label();
+            mat.Content = condiMatchSele.Text;
+            mat.Width = 80;
+            dk.Children.Add(mat);
+            Label con = new Label();
+            con.Content = Condtion_text.Text;
+            con.Width = 180;
+            dk.Children.Add(con);
+
+
+            Condtion_List.Items.Insert(0, dk);
         }
     }
 }
