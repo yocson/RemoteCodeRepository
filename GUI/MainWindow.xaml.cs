@@ -305,7 +305,6 @@ namespace WpfApp1
                     {
                         refresh_list();
                         statusBarText.Text = "The file is checkin sucssesfully.";
-                        ParentFile.Text = rcvMsg.value("namesp") + "_" + rcvMsg.value("filename") + "." + rcvMsg.value("versionnum");
                     }
                     else
                     {
@@ -497,6 +496,26 @@ namespace WpfApp1
             };
             addClientProc("addDepend", addDepend);
         }
+
+        private void DispatcherGetDepend()
+        {
+            Action<CsMessage> getDepend = (CsMessage rcvMsg) =>
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    DependList.Items.Clear();
+                    int dependnum = Int32.Parse(rcvMsg.value("dependnum"));
+                    for (int i = 0; i < dependnum; ++i)
+                    {
+                        DependList.Items.Insert(0, rcvMsg.value("depend" + i.ToString()));
+                    }
+                    statusBarText.Text = "Received getDepend message";
+                    testbox.Items.Insert(0, "Received getDepend message");
+                    if (testMode) Thread.Sleep(1000);
+                });
+            };
+            addClientProc("getDepend", getDepend);
+        }
         //----< load sendfile processing into dispatcher dictionary >------
 
         private void DispatcherSendFile()
@@ -561,6 +580,7 @@ namespace WpfApp1
             DispatcherAddDepend();
             DispatcherViewMetaData();
             DispatcherCloseFile();
+            DispatcherGetDepend();
         }
 
         //----< add all path to pathtextblocks >---------------------------
@@ -946,13 +966,21 @@ namespace WpfApp1
 
         private void Add_DepenList_Click(object sender, RoutedEventArgs e)
         {
-            if (FileList_checkin.SelectedItem != null)
+            if (FileList_checkin.SelectedItem != null && FileList_checkin.SelectedItem.ToString() != ParentFile.Text)
             {
                 DependList.Items.Insert(0, FileList_checkin.SelectedItem);
             }
         }
 
-        private void Add_Depend(object sender, RoutedEventArgs e)
+        private void Delete_DepenList_Click(object sender, RoutedEventArgs e)
+        {
+            if (DependList.SelectedItem != null)
+            {
+                DependList.Items.Remove(DependList.SelectedItem);
+            }
+        }
+
+        private void Add_Depend_click(object sender, RoutedEventArgs e)
         {
             CsEndPoint serverEndPoint = new CsEndPoint();
             serverAddr = machineAddressText.Text;
@@ -964,12 +992,12 @@ namespace WpfApp1
             msg.add("from", CsEndPoint.toString(endPoint_));
             msg.add("command", "addDepend");
             msg.add("parent", ParentFile.Text);
-            foreach (var depend in DependList.Items)
+            msg.add("num", DependList.Items.Count.ToString());
+            for (int i = 0; i < DependList.Items.Count; ++i)
             {
-                msg.add("depend", depend.ToString());
-                translater.postMessage(msg);
-                msg.remove("depend");
+                msg.add("depend" + i.ToString(), DependList.Items[i].ToString());
             }
+            translater.postMessage(msg);
         }
 
         private void FileList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1038,6 +1066,25 @@ namespace WpfApp1
 
 
             Condtion_List.Items.Insert(0, dk);
+        }
+
+        private void set_parent_btn_Click(object sender, RoutedEventArgs e)
+        {
+            if (FileList_checkin.SelectedItem != null)
+            {
+                ParentFile.Text = FileList_checkin.SelectedItem.ToString();
+                CsEndPoint serverEndPoint = new CsEndPoint();
+                serverAddr = machineAddressText.Text;
+                serverPort = Int32.Parse(portText.Text);
+                serverEndPoint.machineAddress = serverAddr;
+                serverEndPoint.port = serverPort;
+                CsMessage msg = new CsMessage();
+                msg.add("to", CsEndPoint.toString(serverEndPoint));
+                msg.add("from", CsEndPoint.toString(endPoint_));
+                msg.add("command", "getDepend");
+                msg.add("filename", FileList_checkin.SelectedItem.ToString());
+                translater.postMessage(msg);
+            }
         }
     }
 }
