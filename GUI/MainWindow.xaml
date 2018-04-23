@@ -414,7 +414,7 @@
                                             <Label FontWeight="Bold" Content="Query conditions:"></Label>
                                             <ListView Name="Condtion_List" Height="94"></ListView>
                                             <!--<CheckBox Content="Query on the result" Margin="0 5 10 0"></CheckBox>-->
-                                            <RadioButton GroupName="Query" Content="Add Query" IsChecked="True"/>
+                                            <RadioButton Name="andquery" GroupName="Query" Content="Add Query" IsChecked="True"/>
                                             <RadioButton GroupName="Query" Content="Or Query" />
                                             <Button Name="querybtn" Content="Query" Margin="10 5 10 -10" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click_Query"></Button>
                                         </StackPanel>
@@ -422,7 +422,7 @@
                                     <Grid Grid.Row="2" Margin="10 0 10 10">
                                         <StackPanel>
                                             <Label FontWeight="Bold" Content="Query result:"></Label>
-                                            <ListBox Height="200"></ListBox>
+                                            <ListBox Name="queryRes_List" Height="200"></ListBox>
                                         </StackPanel>
                                     </Grid>
                                 </Grid>

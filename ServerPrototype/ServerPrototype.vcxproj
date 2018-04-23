@@ -175,6 +175,9 @@
     <ProjectReference Include="\\mac\Home\Documents\CSE687OOD\Projects\RemoteCodeRepository\Repository\NoSqlDb\PayLoad\PayLoad.vcxproj">
       <Project>{9e44fe9d-897d-413e-9961-95ec734ceab5}</Project>
     </ProjectReference>
+    <ProjectReference Include="\\mac\Home\Documents\CSE687OOD\Projects\RemoteCodeRepository\Repository\NoSqlDb\Query\Query.vcxproj">
+      <Project>{523b7482-c101-4109-baa0-ccae63589726}</Project>
+    </ProjectReference>
     <ProjectReference Include="\\mac\Home\Documents\CSE687OOD\Projects\RemoteCodeRepository\Repository\NoSqlDb\XmlDocument\XmlDocument\XmlDocument.vcxproj">
       <Project>{0a82ecdc-7520-453a-8f2c-d813feee7537}</Project>
     </ProjectReference>

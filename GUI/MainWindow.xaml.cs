@@ -366,6 +366,12 @@ namespace WpfApp1
             {
                 Dispatcher.Invoke(() =>
                 {
+                int num = Int32.Parse(rcvMsg.value("num"));
+                for (int i = 0; i < num; ++i)
+                {
+                    rcvMsg.value("result" + i.ToString());
+                    queryRes_List.Items.Insert(0, rcvMsg.value("result" + i.ToString()));
+                }
                     statusBarText.Text = "Received query messages";
                     testbox.Items.Insert(0, "Received query message");
                     if (testMode) Thread.Sleep(1000);
@@ -761,7 +767,7 @@ namespace WpfApp1
             ItemCollection conditions = Condtion_List.Items;
             int num = Condtion_List.Items.Count;
             msg.add("num", num.ToString());
-
+            msg.add("isAndQuery", andquery.IsChecked.ToString());
             for (int i = 0; i < num; ++i)
             {
                 DockPanel con = (DockPanel)conditions.GetItemAt(i);

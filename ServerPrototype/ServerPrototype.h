@@ -89,6 +89,8 @@ namespace Repository
 	static bool checkInFile(const std::string& author, const std::string& namesp, const std::string& filename, const std::string& filepath, const std::string& descrip);
     static Dirs getDirs(const SearchPath& path = storageRoot);
     static Files getFiles(const SearchPath& path = storageRoot);
+	static std::vector<Key> andQuery(Msg msg);
+	static std::vector<Key> orQuery(Msg msg);
   private:
 	MsgPassingCommunication::Comm comm_;
 	MsgDispatcher dispatcher_;
