@@ -247,6 +247,7 @@ namespace WpfApp1
             {
                 Dispatcher.Invoke(() =>
                 {
+                    refresh_list();
                     statusBarText.Text = "Received checkin messages";
                     testbox.Items.Insert(0, "Received checkin message");
                     if (testMode) Thread.Sleep(1000);
@@ -302,6 +303,7 @@ namespace WpfApp1
                 {
                     if (rcvMsg.value("canbeCheckIn") == "1")
                     {
+                        refresh_list();
                         statusBarText.Text = "The file is checkin sucssesfully.";
                         ParentFile.Text = rcvMsg.value("namesp") + "_" + rcvMsg.value("filename") + "." + rcvMsg.value("versionnum");
                     }
@@ -390,33 +392,59 @@ namespace WpfApp1
                 {
                     statusBarText.Text = "Connected";
                     testbox.Items.Insert(0, "Received connect message, Port: " + clientPortText.Text);
-                    CsEndPoint serverEndPoint = new CsEndPoint();
-                    serverEndPoint.machineAddress = serverAddr;
-                    serverEndPoint.port = serverPort;
+                    //CsEndPoint serverEndPoint = new CsEndPoint();
+                    //serverEndPoint.machineAddress = serverAddr;
+                    //serverEndPoint.port = serverPort;
 
-                    CsMessage msg = new CsMessage();
-                    msg.add("to", CsEndPoint.toString(serverEndPoint));
-                    msg.add("from", CsEndPoint.toString(endPoint_));
-                    msg.add("path", pathStack_viewfile.Peek());
-                    List<string> DirLists = new List<string> { "DirList", "DirList_checkin", "DirList_checkout", "DirList_browse" };
-                    foreach (string li in DirLists)
-                    {
-                        msg.add("command", "getDirs");
-                        msg.add("listname", li);
-                        translater.postMessage(msg);
-                        msg.remove("command");
-                        msg.add("command", "getFiles");
-                        translater.postMessage(msg);
-                        msg.remove("command");
-                        msg.remove("listname");
-                    }
-                    msg.remove("command");
-                    msg.add("command", "echo");
-                    translater.postMessage(msg);
+                    //CsMessage msg = new CsMessage();
+                    //msg.add("to", CsEndPoint.toString(serverEndPoint));
+                    //msg.add("from", CsEndPoint.toString(endPoint_));
+                    //msg.add("path", pathStack_viewfile.Peek());
+                    //List<string> DirLists = new List<string> { "DirList", "DirList_checkin", "DirList_checkout", "DirList_browse" };
+                    //foreach (string li in DirLists)
+                    //{
+                    //    msg.add("command", "getDirs");
+                    //    msg.add("listname", li);
+                    //    translater.postMessage(msg);
+                    //    msg.remove("command");
+                    //    msg.add("command", "getFiles");
+                    //    translater.postMessage(msg);
+                    //    msg.remove("command");
+                    //    msg.remove("listname");
+                    //}
+
+                    refresh_list();
+
+                    //msg.remove("command");
+                    //msg.add("command", "echo");
+                    //translater.postMessage(msg);
                     if (testMode) Thread.Sleep(500);
                 });
             };
             addClientProc("connect", connect);
+        }
+
+        private void refresh_list()
+        {
+            CsEndPoint serverEndPoint = new CsEndPoint();
+            serverEndPoint.machineAddress = serverAddr;
+            serverEndPoint.port = serverPort;
+            CsMessage msg = new CsMessage();
+            msg.add("to", CsEndPoint.toString(serverEndPoint));
+            msg.add("from", CsEndPoint.toString(endPoint_));
+            msg.add("path", pathStack_viewfile.Peek());
+            List<string> DirLists = new List<string> { "DirList", "DirList_checkin", "DirList_checkout", "DirList_browse" };
+            foreach (string li in DirLists)
+            {
+                msg.add("command", "getDirs");
+                msg.add("listname", li);
+                translater.postMessage(msg);
+                msg.remove("command");
+                msg.add("command", "getFiles");
+                translater.postMessage(msg);
+                msg.remove("command");
+                msg.remove("listname");
+            }
         }
 
         //----< load viewdata processing into dispatcher dictionary >------
