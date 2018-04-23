@@ -324,10 +324,33 @@ namespace WpfApp1
                 {
                     string targetPath = desselect.Text;
                     string destFile = System.IO.Path.Combine(targetPath, rcvMsg.value("file"));
+
                     statusBarText.Text = "Received checkout messages";
                     testbox.Items.Insert(0, "Received checkout message");
                     System.IO.File.Copy("../SaveFiles/" + rcvMsg.value("file"), destFile, true);
                     checkout_Status.Items.Insert(0, "Checked out " + rcvMsg.value("file"));
+                    if (rcvMsg.value("with_depend") == "True")
+                    {
+                        Console.Write("checkout");
+                        CsEndPoint serverEndPoint = new CsEndPoint();
+                        serverEndPoint.machineAddress = serverAddr;
+                        serverEndPoint.port = serverPort;
+                        CsMessage msg = new CsMessage();
+                        msg.add("to", CsEndPoint.toString(serverEndPoint));
+                        msg.add("from", CsEndPoint.toString(endPoint_));
+                        msg.add("command", "checkOut");
+                        msg.add("with_depend", "False");
+                        msg.add("filepath", rcvMsg.value("filepath"));
+                        int dependnum = Int32.Parse(rcvMsg.value("dependnum"));
+                        Console.Write(dependnum);
+                        for (int i = 0; i < dependnum; ++i)
+                        {
+                            if (rcvMsg.value("depend" + i.ToString()) == rcvMsg.value("filename")) continue;
+                            msg.add("filename", rcvMsg.value("depend" + i.ToString()));
+                            translater.postMessage(msg);
+                            msg.remove("filename");
+                        }
+                    }
                     if (testMode) Thread.Sleep(1000);
                 });
             };
@@ -707,6 +730,7 @@ namespace WpfApp1
 
         private void Button_Click_Checkout(object sender, RoutedEventArgs e)
         {
+            checkout_Status.Items.Clear();
             CsEndPoint serverEndPoint = new CsEndPoint();
             serverEndPoint.machineAddress = serverAddr;
             serverEndPoint.port = serverPort;
@@ -716,7 +740,7 @@ namespace WpfApp1
             msg.add("command", "checkOut");
             msg.add("with_depend", with_depend_check.IsChecked.ToString());
             msg.add("filename", FileList_checkout.SelectedItem.ToString());
-            msg.add("filepath", "../" + PathTextBlock_checkout.Text + "/");
+            msg.add("filepath", "../" + PathTextBlock_checkout.Text);
             translater.postMessage(msg);
         }
 

@@ -20,6 +20,7 @@ namespace Repository
 
     void CheckOut::checkOutFile(const std::string& namesp, const std::string & filename, int versionnum, bool withDepend /*= true*/)
     {
+		keys_.clear();
         std::string nsandpk = namesp + "::" + filename;
         if(ver_.hasFile(nsandpk)) {
             CheckOut::VersionInfo verinfo = ver_.checkVersion(nsandpk);
@@ -42,11 +43,13 @@ namespace Repository
         // use file system to copy files from keys_
         // change filename at the same time
         for(auto key: keys_) {
+			std::cout << "\n Checkout Key: " << key;
             File file = repo_.getElem(key);
-
 			std::string src = file.payLoad().filePath() + "/" + file.payLoad().namesp() + "_" + file.name() + "." + std::to_string(file.payLoad().version());
 			std::string path = file.payLoad().filePath();
 			
+			std::cout << "\n Checkout filepath: " << file.payLoad().filePath();
+
 			path = destination + path.substr(reporootdir.size()) + "/";
 
 			std::string des = path + file.name();
@@ -81,7 +84,6 @@ namespace Repository
 		std::unordered_set<std::string> visited;
 
 		std::queue<std::string> bfsque;
-
 		bfsque.push(key);
 		
 		while (!bfsque.empty())
@@ -96,6 +98,8 @@ namespace Repository
 				}
 			}
 			visited.insert(key);
+			std::cout << "\n depend key :" << key;
+
 		}
 	}
 

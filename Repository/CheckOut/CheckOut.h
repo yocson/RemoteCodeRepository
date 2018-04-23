@@ -81,6 +81,9 @@ namespace Repository
         void copyFiles(const FilePath& destination, const std::string& reporootdir = "../RepositoryContents");
 		void retrieveAllDepend(const std::string& key);
 
+		Keys& keys() { return keys_; }
+		Keys keys() const { return keys_; }
+
     private:
         RepositoryCore& repo_;
         Version& ver_;
