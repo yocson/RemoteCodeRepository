@@ -630,10 +630,10 @@ namespace WpfApp1
 
             connectbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
 
-            mock_checkin("\\\\Mac\\Home\\Documents\\forms.txt", "Cheng", "TestFile1", "Test");
-            mock_checkin("\\\\Mac\\Home\\Documents\\folder_flatten.py", "Cheng", "TestFile2", "Test");
-            mock_checkin("\\\\Mac\\Home\\Documents\\forms_for_parsing.txt", "Cheng", "TestFile3", "Test");
-            mock_checkin("\\\\Mac\\Home\\Documents\\HW3_submit.txt", "Cheng", "TestFile4", "Test");
+            mock_checkin("\\\\Mac\\Home\\Documents\\forms.txt", "Cheng", "TestFile1", "Project1", "Test");
+            mock_checkin("\\\\Mac\\Home\\Documents\\folder_flatten.py", "Cheng", "TestFile2", "Project1", "Test");
+            mock_checkin("\\\\Mac\\Home\\Documents\\forms_for_parsing.txt", "Cheng", "TestFile3", "Project1", "Utility");
+            mock_checkin("\\\\Mac\\Home\\Documents\\HW3_submit.txt", "Cheng", "TestFile4", "Project1", "Utility");
         }
         //----< strip off name of first part of path >---------------------
 
@@ -744,7 +744,7 @@ namespace WpfApp1
             msg.add("author", author_text.Text);
             msg.add("desciption", descrip_text.Text);
             msg.add("category", cate_text.Text);
-            msg.add("namesp", cate_text.Text);
+            msg.add("namesp", namesp_text.Text);
             msg.add("filename", System.IO.Path.GetFileName(fileselect.Text));
             if (!validateCheckinInfo(msg)) return;
             translater.postMessage(msg);
@@ -980,7 +980,7 @@ namespace WpfApp1
             }
         }
 
-        private void Add_Depend_click(object sender, RoutedEventArgs e)
+        private void Comfirm_Depend_click(object sender, RoutedEventArgs e)
         {
             CsEndPoint serverEndPoint = new CsEndPoint();
             serverAddr = machineAddressText.Text;
@@ -1033,12 +1033,13 @@ namespace WpfApp1
             translater.postMessage(msg);
         }
 
-        private void mock_checkin(string filepath, string author, string descrip, string cate)
+        private void mock_checkin(string filepath, string author, string descrip, string cate, string namesp)
         {
             fileselect.Text = filepath;
             author_text.Text = author;
             descrip_text.Text = descrip;
             cate_text.Text = cate;
+            namesp_text.Text = namesp;
             checkinbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             Thread.Sleep(500);
         }
