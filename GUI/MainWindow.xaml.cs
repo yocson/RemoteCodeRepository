@@ -255,6 +255,7 @@ namespace WpfApp1
             };
             addClientProc("checkIn", checkIn);
         }
+        //----< load checkAuthor processing into dispatcher dictionary >-------
 
         private void DispatcherCheckAuthor()
         {
@@ -301,6 +302,7 @@ namespace WpfApp1
             };
             addClientProc("checkAuthor", checkAuthor);
         }
+        //----< load checkInFile processing into dispatcher dictionary >-------
 
         private void DispatcherCheckInFile()
         {
@@ -319,6 +321,7 @@ namespace WpfApp1
                         statusBarText.Text = "File is close-pending, please close it first.";
 
                     }
+                    testbox.Items.Insert(0, "Received checkInFile message");
                 });
             };
             addClientProc("checkInFile", checkInFile);
@@ -361,6 +364,8 @@ namespace WpfApp1
                             msg.remove("filename");
                         }
                     }
+                    statusBarText.Text = "Received checkout messages";
+                    testbox.Items.Insert(0, "Received checkout message");
                     if (testMode) Thread.Sleep(1000);
                 });
             };
@@ -374,12 +379,12 @@ namespace WpfApp1
             {
                 Dispatcher.Invoke(() =>
                 {
-                int num = Int32.Parse(rcvMsg.value("num"));
-                for (int i = 0; i < num; ++i)
-                {
-                    rcvMsg.value("result" + i.ToString());
-                    queryRes_List.Items.Insert(0, rcvMsg.value("result" + i.ToString()));
-                }
+                    int num = Int32.Parse(rcvMsg.value("num"));
+                    for (int i = 0; i < num; ++i)
+                    {
+                        rcvMsg.value("result" + i.ToString());
+                        queryRes_List.Items.Insert(0, rcvMsg.value("result" + i.ToString()));
+                    }
                     statusBarText.Text = "Received query messages";
                     testbox.Items.Insert(0, "Received query message");
                     if (testMode) Thread.Sleep(1000);
@@ -398,37 +403,16 @@ namespace WpfApp1
                 {
                     statusBarText.Text = "Connected";
                     testbox.Items.Insert(0, "Received connect message, Port: " + clientPortText.Text);
-                    //CsEndPoint serverEndPoint = new CsEndPoint();
-                    //serverEndPoint.machineAddress = serverAddr;
-                    //serverEndPoint.port = serverPort;
 
-                    //CsMessage msg = new CsMessage();
-                    //msg.add("to", CsEndPoint.toString(serverEndPoint));
-                    //msg.add("from", CsEndPoint.toString(endPoint_));
-                    //msg.add("path", pathStack_viewfile.Peek());
-                    //List<string> DirLists = new List<string> { "DirList", "DirList_checkin", "DirList_checkout", "DirList_browse" };
-                    //foreach (string li in DirLists)
-                    //{
-                    //    msg.add("command", "getDirs");
-                    //    msg.add("listname", li);
-                    //    translater.postMessage(msg);
-                    //    msg.remove("command");
-                    //    msg.add("command", "getFiles");
-                    //    translater.postMessage(msg);
-                    //    msg.remove("command");
-                    //    msg.remove("listname");
-                    //}
 
                     refresh_list();
 
-                    //msg.remove("command");
-                    //msg.add("command", "echo");
-                    //translater.postMessage(msg);
                     if (testMode) Thread.Sleep(500);
                 });
             };
             addClientProc("connect", connect);
         }
+        //----< refresh all the filelists and dirlists >-------
 
         private void refresh_list()
         {
@@ -468,6 +452,7 @@ namespace WpfApp1
             };
             addClientProc("viewdata", viewdata);
         }
+        //----< load closeFile processing into dispatcher dictionary >-------
 
         private void DispatcherCloseFile()
         {
@@ -489,6 +474,7 @@ namespace WpfApp1
             };
             addClientProc("closeFile", closeFile);
         }
+        //----< load addDepend processing into dispatcher dictionary >-------
 
         private void DispatcherAddDepend()
         {
@@ -503,6 +489,7 @@ namespace WpfApp1
             };
             addClientProc("addDepend", addDepend);
         }
+        //----< load getDepend processing into dispatcher dictionary >-------
 
         private void DispatcherGetDepend()
         {
@@ -541,6 +528,7 @@ namespace WpfApp1
             };
             addClientProc("sendFile", sendFile);
         }
+        //----< load viewMetaData processing into dispatcher dictionary >-------
 
         private void DispatcherViewMetaData()
         {
@@ -572,7 +560,8 @@ namespace WpfApp1
                     MetaData_List.Items.Insert(0, "NameSapce: " + rcvMsg.value("namesp"));
                     MetaData_List.Items.Insert(0, "Author: " + rcvMsg.value("author"));
                     MetaData_List.Items.Insert(0, "FileName: " + rcvMsg.value("filename"));
-
+                    statusBarText.Text = "Received viewmetadata messages";
+                    testbox.Items.Insert(0, "Received viewmetadata message");
                 });
             };
             addClientProc("viewMetaData", viewMetaData);
@@ -771,6 +760,7 @@ namespace WpfApp1
             if (!validateCheckinInfo(msg)) return;
             translater.postMessage(msg);
         }
+        //----< check whether all the necessary fields are filled >----------------
 
         private bool validateCheckinInfo(CsMessage msg)
         {
@@ -882,7 +872,7 @@ namespace WpfApp1
 
         //----< respond to mouse click on viewdata button >----------------
 
-        private void viewdatabtn_Click(object sender, RoutedEventArgs e)
+        private void Button_Click_ViewMetaData(object sender, RoutedEventArgs e)
         {
             CsEndPoint serverEndPoint = new CsEndPoint();
             serverEndPoint.machineAddress = "localhost";
@@ -892,6 +882,183 @@ namespace WpfApp1
             msg.add("from", CsEndPoint.toString(endPoint_));
             msg.add("command", "viewMetaData");
             translater.postMessage(msg);
+        }
+
+
+        //----< respond to mouse click on selectfile button >----------------
+
+        private void Button_Click_SelectFile(object sender, RoutedEventArgs e)
+        {
+            // Create OpenFileDialog 
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.DefaultExt = ".*";
+            //dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
+
+            // Display OpenFileDialog by calling ShowDialog method 
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Get the selected file name and display in a TextBox 
+            if (result == true)
+            {
+                // Open document 
+                string filename = dlg.FileName;
+                fileselect.Text = filename;
+            }
+        }
+        //----< respond to mouse click on selectdes button >----------------
+
+        private void Button_Click_SelectDes(object sender, RoutedEventArgs e)
+        {
+            // Create FolderBrowserDialog 
+            System.Windows.Forms.FolderBrowserDialog dlg = new System.Windows.Forms.FolderBrowserDialog();
+            dlg.ShowDialog();
+            string path = dlg.SelectedPath;
+            desselect.Text = path;
+        }
+        //----< make the field back to white background >----------------
+
+        private void Back_white(object sender, TextChangedEventArgs e)
+        {
+            TextBox t = sender as TextBox;
+            t.Background = Brushes.White;
+        }
+        //----< respond to mouse click on add dependlist button >----------------
+
+        private void Button_Click_AddDepend(object sender, RoutedEventArgs e)
+        {
+            if (FileList_checkin.SelectedItem != null && FileList_checkin.SelectedItem.ToString() != ParentFile.Text)
+            {
+                DependList.Items.Insert(0, FileList_checkin.SelectedItem);
+            }
+        }
+        //----< respond to mouse click on delete dependlist button >----------------
+
+        private void Button_Click_DelDepend(object sender, RoutedEventArgs e)
+        {
+            if (DependList.SelectedItem != null)
+            {
+                DependList.Items.Remove(DependList.SelectedItem);
+            }
+        }
+        //----< respond to mouse click on comfirm depend button >----------------
+
+        private void Button_Click_ConfirmDepend(object sender, RoutedEventArgs e)
+        {
+            CsEndPoint serverEndPoint = new CsEndPoint();
+            serverAddr = machineAddressText.Text;
+            serverPort = Int32.Parse(portText.Text);
+            serverEndPoint.machineAddress = serverAddr;
+            serverEndPoint.port = serverPort;
+            CsMessage msg = new CsMessage();
+            msg.add("to", CsEndPoint.toString(serverEndPoint));
+            msg.add("from", CsEndPoint.toString(endPoint_));
+            msg.add("command", "addDepend");
+            msg.add("parent", ParentFile.Text);
+            msg.add("num", DependList.Items.Count.ToString());
+            for (int i = 0; i < DependList.Items.Count; ++i)
+            {
+                msg.add("depend" + i.ToString(), DependList.Items[i].ToString());
+            }
+            translater.postMessage(msg);
+        }
+        //----< respond to filelist selecteditem change >----------------
+
+        private void FileList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListBox it = sender as ListBox;
+            if (it.SelectedItem != null)
+            {
+                CsEndPoint serverEndPoint = new CsEndPoint();
+                serverAddr = machineAddressText.Text;
+                serverPort = Int32.Parse(portText.Text);
+                serverEndPoint.machineAddress = serverAddr;
+                serverEndPoint.port = serverPort;
+                CsMessage msg = new CsMessage();
+                msg.add("to", CsEndPoint.toString(serverEndPoint));
+                msg.add("from", CsEndPoint.toString(endPoint_));
+                msg.add("command", "viewMetaData");
+                msg.add("source", it.Name);
+                msg.add("filename", it.SelectedItem.ToString());
+                translater.postMessage(msg);
+            }
+        }
+        //----< respond to mouse click on closefile button >----------------
+
+        private void Button_Click_CloseFile(object sender, RoutedEventArgs e)
+        {
+            if (FileList_browse.SelectedItem != null)
+            {
+                CsEndPoint serverEndPoint = new CsEndPoint();
+                serverAddr = machineAddressText.Text;
+                serverPort = Int32.Parse(portText.Text);
+                serverEndPoint.machineAddress = serverAddr;
+                serverEndPoint.port = serverPort;
+                CsMessage msg = new CsMessage();
+                msg.add("to", CsEndPoint.toString(serverEndPoint));
+                msg.add("from", CsEndPoint.toString(endPoint_));
+                msg.add("command", "closeFile");
+                msg.add("filename", FileList_browse.SelectedItem.ToString());
+                translater.postMessage(msg);
+            }
+        }
+
+        //----< respond to mouse click on addcondition button >----------------
+
+        private void Button_Click_AddCondi(object sender, RoutedEventArgs e)
+        {
+            string condition = condiNameSele.Text + " ";
+            condition += condiMatchSele.Text;
+            condition += " ";
+            condition += Condtion_text.Text;
+
+            DockPanel dk = new DockPanel();
+            Label nam = new Label();
+            nam.Content = condiNameSele.Text;
+            nam.Width = 80;
+            dk.Children.Add(nam);
+            Label mat = new Label();
+            mat.Content = condiMatchSele.Text;
+            mat.Width = 80;
+            dk.Children.Add(mat);
+            Label con = new Label();
+            con.Content = Condtion_text.Text;
+            con.Width = 180;
+            dk.Children.Add(con);
+
+
+            Condtion_List.Items.Insert(0, dk);
+        }
+        //----< respond to mouse click on set_parent button >----------------
+
+        private void Button_Click_SetParent(object sender, RoutedEventArgs e)
+        {
+            if (FileList_checkin.SelectedItem != null)
+            {
+                ParentFile.Text = FileList_checkin.SelectedItem.ToString();
+                CsEndPoint serverEndPoint = new CsEndPoint();
+                serverAddr = machineAddressText.Text;
+                serverPort = Int32.Parse(portText.Text);
+                serverEndPoint.machineAddress = serverAddr;
+                serverEndPoint.port = serverPort;
+                CsMessage msg = new CsMessage();
+                msg.add("to", CsEndPoint.toString(serverEndPoint));
+                msg.add("from", CsEndPoint.toString(endPoint_));
+                msg.add("command", "getDepend");
+                msg.add("filename", FileList_checkin.SelectedItem.ToString());
+                translater.postMessage(msg);
+            }
+        }
+
+
+        private void mock_checkin(string filepath, string author, string descrip, string cate, string namesp)
+        {
+            fileselect.Text = filepath;
+            author_text.Text = author;
+            descrip_text.Text = descrip;
+            cate_text.Text = cate;
+            namesp_text.Text = namesp;
+            checkinbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            Thread.Sleep(500);
         }
 
         //----< Test function for requirement #1 >----------------
@@ -949,174 +1116,7 @@ namespace WpfApp1
             checkinbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             Console.Write("  Simulate Click checkOut button \n");
             checkoutbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-            //Console.Write("  Simulate Click browse button \n");
-            //browsebtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-            //Console.Write("  Simulate Click viewdata button \n");
-            //viewdatabtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             Console.Write("  Requirement #3 passed. \n");
-        }
-
-        private void SelectFile_Button(object sender, RoutedEventArgs e)
-        {
-            // Create OpenFileDialog 
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.DefaultExt = ".*";
-            //dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
-
-            // Display OpenFileDialog by calling ShowDialog method 
-            Nullable<bool> result = dlg.ShowDialog();
-
-            // Get the selected file name and display in a TextBox 
-            if (result == true)
-            {
-                // Open document 
-                string filename = dlg.FileName;
-                fileselect.Text = filename;
-            }
-        }
-
-        private void SelectDes_Button(object sender, RoutedEventArgs e)
-        {
-            // Create FolderBrowserDialog 
-            System.Windows.Forms.FolderBrowserDialog dlg = new System.Windows.Forms.FolderBrowserDialog();
-            dlg.ShowDialog();
-            string path = dlg.SelectedPath;
-            desselect.Text = path;
-        }
-
-        private void Back_white(object sender, TextChangedEventArgs e)
-        {
-            TextBox t = sender as TextBox;
-            t.Background = Brushes.White;
-        }
-
-        private void Add_DepenList_Click(object sender, RoutedEventArgs e)
-        {
-            if (FileList_checkin.SelectedItem != null && FileList_checkin.SelectedItem.ToString() != ParentFile.Text)
-            {
-                DependList.Items.Insert(0, FileList_checkin.SelectedItem);
-            }
-        }
-
-        private void Delete_DepenList_Click(object sender, RoutedEventArgs e)
-        {
-            if (DependList.SelectedItem != null)
-            {
-                DependList.Items.Remove(DependList.SelectedItem);
-            }
-        }
-
-        private void Comfirm_Depend_click(object sender, RoutedEventArgs e)
-        {
-            CsEndPoint serverEndPoint = new CsEndPoint();
-            serverAddr = machineAddressText.Text;
-            serverPort = Int32.Parse(portText.Text);
-            serverEndPoint.machineAddress = serverAddr;
-            serverEndPoint.port = serverPort;
-            CsMessage msg = new CsMessage();
-            msg.add("to", CsEndPoint.toString(serverEndPoint));
-            msg.add("from", CsEndPoint.toString(endPoint_));
-            msg.add("command", "addDepend");
-            msg.add("parent", ParentFile.Text);
-            msg.add("num", DependList.Items.Count.ToString());
-            for (int i = 0; i < DependList.Items.Count; ++i)
-            {
-                msg.add("depend" + i.ToString(), DependList.Items[i].ToString());
-            }
-            translater.postMessage(msg);
-        }
-
-        private void FileList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ListBox it = sender as ListBox;
-            if (it.SelectedItem != null)
-            {
-                CsEndPoint serverEndPoint = new CsEndPoint();
-                serverAddr = machineAddressText.Text;
-                serverPort = Int32.Parse(portText.Text);
-                serverEndPoint.machineAddress = serverAddr;
-                serverEndPoint.port = serverPort;
-                CsMessage msg = new CsMessage();
-                msg.add("to", CsEndPoint.toString(serverEndPoint));
-                msg.add("from", CsEndPoint.toString(endPoint_));
-                msg.add("command", "viewMetaData");
-                msg.add("source", it.Name);
-                msg.add("filename", it.SelectedItem.ToString());
-                translater.postMessage(msg);
-            }
-        }
-
-        private void Close_file_btn(object sender, RoutedEventArgs e)
-        {
-            if (FileList_browse.SelectedItem != null)
-            {
-                CsEndPoint serverEndPoint = new CsEndPoint();
-                serverAddr = machineAddressText.Text;
-                serverPort = Int32.Parse(portText.Text);
-                serverEndPoint.machineAddress = serverAddr;
-                serverEndPoint.port = serverPort;
-                CsMessage msg = new CsMessage();
-                msg.add("to", CsEndPoint.toString(serverEndPoint));
-                msg.add("from", CsEndPoint.toString(endPoint_));
-                msg.add("command", "closeFile");
-                msg.add("filename", FileList_browse.SelectedItem.ToString());
-                translater.postMessage(msg);
-            }
-        }
-
-        private void mock_checkin(string filepath, string author, string descrip, string cate, string namesp)
-        {
-            fileselect.Text = filepath;
-            author_text.Text = author;
-            descrip_text.Text = descrip;
-            cate_text.Text = cate;
-            namesp_text.Text = namesp;
-            checkinbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-            Thread.Sleep(500);
-        }
-
-        private void add_condi_click(object sender, RoutedEventArgs e)
-        {
-            string condition = condiNameSele.Text + " ";
-            condition += condiMatchSele.Text;
-            condition += " ";
-            condition += Condtion_text.Text;
-
-            DockPanel dk = new DockPanel();
-            Label nam = new Label();
-            nam.Content = condiNameSele.Text;
-            nam.Width = 80;
-            dk.Children.Add(nam);
-            Label mat = new Label();
-            mat.Content = condiMatchSele.Text;
-            mat.Width = 80;
-            dk.Children.Add(mat);
-            Label con = new Label();
-            con.Content = Condtion_text.Text;
-            con.Width = 180;
-            dk.Children.Add(con);
-
-
-            Condtion_List.Items.Insert(0, dk);
-        }
-
-        private void set_parent_btn_Click(object sender, RoutedEventArgs e)
-        {
-            if (FileList_checkin.SelectedItem != null)
-            {
-                ParentFile.Text = FileList_checkin.SelectedItem.ToString();
-                CsEndPoint serverEndPoint = new CsEndPoint();
-                serverAddr = machineAddressText.Text;
-                serverPort = Int32.Parse(portText.Text);
-                serverEndPoint.machineAddress = serverAddr;
-                serverEndPoint.port = serverPort;
-                CsMessage msg = new CsMessage();
-                msg.add("to", CsEndPoint.toString(serverEndPoint));
-                msg.add("from", CsEndPoint.toString(endPoint_));
-                msg.add("command", "getDepend");
-                msg.add("filename", FileList_checkin.SelectedItem.ToString());
-                translater.postMessage(msg);
-            }
         }
     }
 }

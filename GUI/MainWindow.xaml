@@ -88,7 +88,7 @@
                                 <Grid Grid.Row="0" Margin="50 50 50 20">
                                     <DockPanel>
                                         <TextBox Name="fileselect" Height="20" Text="File Selected" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,2,0,1.5" Width="302" TextChanged="Back_white"></TextBox>
-                                        <Button Content="Select File" HorizontalAlignment="Right" Click="SelectFile_Button" Margin="0,0,0,1" Width="80"></Button>
+                                        <Button Content="Select File" HorizontalAlignment="Right" Click="Button_Click_SelectFile" Margin="0,0,0,1" Width="80"></Button>
                                     </DockPanel>
                                 </Grid>
                                 <Grid Grid.Row="1" Margin="10 0 10 10">
@@ -195,7 +195,7 @@
                                         </Grid.RowDefinitions>
                                         <DockPanel Grid.Row="0">
                                             <TextBlock  Padding="10 10" FontWeight="Bold" FontSize="14">Files</TextBlock>
-                                            <Button Name="set_parent_btn" Margin="10 8 10 4" HorizontalAlignment="Right" Click="set_parent_btn_Click">Set as Parent File</Button>
+                                            <Button Name="set_parent_btn" Margin="10 8 10 4" HorizontalAlignment="Right" Click="Button_Click_SetParent">Set as Parent File</Button>
                                         </DockPanel>
                                         <Border Grid.Row="1" BorderThickness="10">
                                             <ListBox x:Name="FileList_checkin" MouseDoubleClick="FileList_MouseDoubleClick"></ListBox>
@@ -205,8 +205,8 @@
                                 </Grid>
                                 <Grid Grid.Column="1" >
                                     <StackPanel VerticalAlignment="Center">
-                                        <Button Content="=>" Margin="0 10" HorizontalAlignment="Left" Width="25" Click="Add_DepenList_Click"></Button>
-                                        <Button Content="&lt;="  HorizontalAlignment="Left" Width="25" Click="Delete_DepenList_Click"></Button>
+                                        <Button Content="=>" Margin="0 10" HorizontalAlignment="Left" Width="25" Click="Button_Click_AddDepend"></Button>
+                                        <Button Content="&lt;="  HorizontalAlignment="Left" Width="25" Click="Button_Click_DelDepend"></Button>
                                     </StackPanel>
                                 </Grid>
                                 <StackPanel Grid.Column="2" Margin="10, 50, 0, 0">
@@ -216,7 +216,7 @@
                                     </DockPanel>
                                     <Label>Dependencies:</Label>
                                     <ListBox Name="DependList" Height="302" Margin="0,0,0.5,0"></ListBox>
-                                    <Button Content="Confirm dependency" Margin="50 20" Click="Comfirm_Depend_click"></Button>
+                                    <Button Content="Confirm dependency" Margin="50 20" Click="Button_Click_ConfirmDepend"></Button>
                                 </StackPanel>
                             </Grid>
                         </TabItem>
@@ -294,7 +294,7 @@
                                     <Label FontWeight="Bold" Content="Checkout Destination:"></Label>
                                     <DockPanel>
                                         <TextBox Name="desselect" Margin="0,0,10,0.5" Width="156"></TextBox>
-                                        <Button Content="select des" Click="SelectDes_Button"/>
+                                        <Button Content="select des" Click="Button_Click_SelectDes"/>
                                     </DockPanel>
                                     <CheckBox Name="with_depend_check" Content="with dependencies" HorizontalAlignment="Right" Width="237"></CheckBox>
                                 </StackPanel>
@@ -376,7 +376,7 @@
                                     <RowDefinition Height="*"></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <Grid Grid.Row="2">
-                                    <Button Content="Close File" Width="100" Click="Close_file_btn"/>
+                                    <Button Content="Close File" Width="100" Click="Button_Click_CloseFile"/>
                                 </Grid>
                                 <Grid Grid.Row="0" Margin="10 10 10 10">
                                     <StackPanel>
@@ -417,7 +417,7 @@
                                     <ComboBoxItem>is exact</ComboBoxItem>
                                 </ComboBox>
                                 <TextBox Name="Condtion_text"  Margin="10,0,10,0.5" Width="257"></TextBox>
-                                <Button Name="add_condi_btn" Content="Add" HorizontalAlignment="Right" Margin="0,0,0,0.5" Width="52" Click="add_condi_click"></Button>
+                                <Button Name="add_condi_btn" Content="Add" HorizontalAlignment="Right" Margin="0,0,0,0.5" Width="52" Click="Button_Click_AddCondi"></Button>
                             </DockPanel>
                         </Grid>
                         <Grid Grid.Row="1" Margin="10 10 10 10">
