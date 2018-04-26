@@ -633,11 +633,10 @@ namespace WpfApp1
             addPath();
 
             connectbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-
-            mock_checkin("\\\\Mac\\Home\\Documents\\forms.txt", "Cheng", "TestFile1", "Project1", "Test");
-            mock_checkin("\\\\Mac\\Home\\Documents\\folder_flatten.py", "Cheng", "TestFile2", "Project1", "Test");
-            mock_checkin("\\\\Mac\\Home\\Documents\\forms_for_parsing.txt", "Cheng", "TestFile3", "Project1", "Utility");
-            mock_checkin("\\\\Mac\\Home\\Documents\\HW3_submit.txt", "Cheng", "TestFile4", "Project1", "Utility");
+            mock_checkin("../DemoFiles/Comm.cpp", "Cheng", "A comm cpp file", "communication,utility", "COMM", "");
+            mock_checkin("../DemoFiles/Comm.h", "Cheng", "A comm header file", "communication,utility", "COMM", "");
+            mock_checkin("../DemoFiles/Sockets.cpp", "Cheng", "Package Socket cpp file", "socket,communication", "SOCKET", "/Socket");
+            mock_checkin("../DemoFiles/Sockets.h", "Cheng", "Package Socket h file", "socket,communication", "SOCKET", "/Socket");
         }
         //----< strip off name of first part of path >---------------------
 
@@ -1050,13 +1049,14 @@ namespace WpfApp1
         }
 
 
-        private void mock_checkin(string filepath, string author, string descrip, string cate, string namesp)
+        private void mock_checkin(string filepath, string author, string descrip, string cate, string namesp, string subdir)
         {
             fileselect.Text = filepath;
             author_text.Text = author;
             descrip_text.Text = descrip;
             cate_text.Text = cate;
             namesp_text.Text = namesp;
+            subdir_text.Text = subdir;
             checkinbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             Thread.Sleep(500);
         }
@@ -1073,26 +1073,66 @@ namespace WpfApp1
 
         //----< Test function for requirement #2a >----------------
 
-        private void test2a()
+        private void test2()
         {
-            Console.Write("\n Demonstrating Requirement #2a \n");
+            Console.Write("\n Demonstrating Requirement #2 \n");
             Console.Write("\n ============================== \n");
-            Console.Write("  This test will simulate a double click on the file list. \n");
+            Console.Write("  This test will show the functionalities of the database. \n");
             Console.Write("  A window will pop up and show the file content. \n");
-            Console.Write("  Requirement #2a passed. \n");
+
+            test2a(); // for checkin
+            //test2b(); // for add dependencies
+            ////test2c(); // for checkout
+            ////test2d(); // for browse
+            ////test2e(); // for query
 
 
-            MouseButtonEventArgs e = new MouseButtonEventArgs(Mouse.PrimaryDevice, 0, MouseButton.Left);
-            e.RoutedEvent = Control.MouseDoubleClickEvent;
-            e.Source = FileList_checkin;
-            FileList_checkin.Items.Add("Message.h");
-            FileList_checkin.SelectedIndex = 0;
-            FileList_checkin.RaiseEvent(e);
+            Console.Write("  Requirement #2 passed. \n");
         }
 
-        //----< Test function for requirement #2b >----------------
+        private void test2a()
+        {
+            Console.Write("  Testing check in. \n");
+            mock_checkin("../DemoFiles/Comm.cpp", "Cheng", "A comm cpp file", "communication,utility", "COMM", "");
+            mock_checkin("../DemoFiles/Comm.h", "Cheng", "A comm header file", "communication,utility", "COMM", "");
+            mock_checkin("../DemoFiles/Sockets.cpp", "Cheng", "Package Socket cpp file", "socket,communication", "SOCKET", "/Socket");
+            mock_checkin("../DemoFiles/Sockets.h", "Cheng", "Package Socket h file", "socket,communication", "SOCKET", "/Socket");
+        }
 
         private void test2b()
+        {
+            Console.Write("  Testing add dependencies. \n");
+            // set some file as parent
+            // add to the depend list
+            // confirm
+            // delete
+            // comfirm
+        }
+
+        private void test2c()
+        {
+            Console.Write("  Testing checkout. \n");
+            // checkout the single file
+            // checkout file with dependencies
+        }
+
+        private void test2d()
+        {
+            Console.Write("  Testing browse. \n");
+            // view metadata
+            // popup window
+        }
+
+        private void test2e()
+        {
+            Console.Write("  Testing query. \n");
+            // and query
+            // or query
+        }
+
+        //----< Test function for requirement #9 >----------------
+
+        private void test9()
         {
             Console.Write("\n Demonstrating Requirement #2b \n");
             Console.Write("\n ============================== \n");
@@ -1109,14 +1149,19 @@ namespace WpfApp1
         {
             Console.Write("\n Demonstrating Requirement #3 \n");
             Console.Write("\n ============================== \n");
-            Console.Write("  Every click will change the text in status bar and test tab, 1s for each operation. \n");
-            Console.Write("  Simulate Click connect button \n");
-            connectbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-            Console.Write("  Simulate Click checkIn button \n");
-            checkinbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-            Console.Write("  Simulate Click checkOut button \n");
-            checkoutbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-            Console.Write("  Requirement #3 passed. \n");
+            Console.Write("  This test will show that a client can upload and download a file.  \n");
+            Console.Write("  Uploading a file is completed in the checkin process.  \n");
+            Console.Write("  Downloading a file is demonstrated by pop up a code window.  \n");
+        }
+
+        //----< Test function for requirement #4 >----------------
+
+        private void test4()
+        {
+            Console.Write("\n Demonstrating Requirement #4 \n");
+            Console.Write("\n ============================== \n");
+            Console.Write("  This test will show a message-passing communication system  \n");
+            
         }
     }
 }
