@@ -68,7 +68,7 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
-            Console.Title = "Project#3 GUI Console Demo";
+            Console.Title = "Project#4 GUI Console Demo";
         }
 
         private Stack<string> pathStack_ = new Stack<string>();
