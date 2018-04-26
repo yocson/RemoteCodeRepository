@@ -85,6 +85,7 @@ namespace Repository
 	static FileElem& getElem(const Key& key);
 	static bool addDependency(const Key& key, const std::string& depend);
 	static VersionInfo getVersion(const std::string& namesp, const std::string& filename);
+	static bool isOpen(const Key& key);
 	static bool checkAuthor(const std::string& author, const std::string& namesp, const std::string& filename);
 	static bool checkInFile(const std::string& author, const std::string& namesp, const std::string& filename, const std::string& filepath, const std::string& descrip);
     static Dirs getDirs(const SearchPath& path = storageRoot);

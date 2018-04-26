@@ -278,6 +278,7 @@ namespace WpfApp1
                         msg.add("namesp", rcvMsg.value("namesp"));
                         msg.add("file", rcvMsg.value("filename"));
                         msg.add("filename", rcvMsg.value("filename"));
+                        msg.add("subdir", rcvMsg.value("subdir"));
                         string targetPath = "../SendFiles";
                         string destFile = System.IO.Path.Combine(targetPath, System.IO.Path.GetFileName(fileselect.Text));
                         System.IO.File.Copy(fileselect.Text, destFile, true);
@@ -746,6 +747,7 @@ namespace WpfApp1
             msg.add("category", cate_text.Text);
             msg.add("namesp", namesp_text.Text);
             msg.add("filename", System.IO.Path.GetFileName(fileselect.Text));
+            msg.add("subdir", subdir_text.Text); 
             if (!validateCheckinInfo(msg)) return;
             translater.postMessage(msg);
         }
@@ -1003,19 +1005,21 @@ namespace WpfApp1
         private void FileList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListBox it = sender as ListBox;
-
-            CsEndPoint serverEndPoint = new CsEndPoint();
-            serverAddr = machineAddressText.Text;
-            serverPort = Int32.Parse(portText.Text);
-            serverEndPoint.machineAddress = serverAddr;
-            serverEndPoint.port = serverPort;
-            CsMessage msg = new CsMessage();
-            msg.add("to", CsEndPoint.toString(serverEndPoint));
-            msg.add("from", CsEndPoint.toString(endPoint_));
-            msg.add("command", "viewMetaData");
-            msg.add("source", it.Name);
-            msg.add("filename", it.SelectedItem.ToString());
-            translater.postMessage(msg);
+            if (it.SelectedItem != null)
+            {
+                CsEndPoint serverEndPoint = new CsEndPoint();
+                serverAddr = machineAddressText.Text;
+                serverPort = Int32.Parse(portText.Text);
+                serverEndPoint.machineAddress = serverAddr;
+                serverEndPoint.port = serverPort;
+                CsMessage msg = new CsMessage();
+                msg.add("to", CsEndPoint.toString(serverEndPoint));
+                msg.add("from", CsEndPoint.toString(endPoint_));
+                msg.add("command", "viewMetaData");
+                msg.add("source", it.Name);
+                msg.add("filename", it.SelectedItem.ToString());
+                translater.postMessage(msg);
+            }
         }
 
         private void Close_file_btn(object sender, RoutedEventArgs e)
