@@ -274,7 +274,13 @@ namespace WpfApp1
                         msg.add("command", "checkInFile");
                         msg.add("author", rcvMsg.value("author"));
                         msg.add("description", rcvMsg.value("desciption"));
-                        msg.add("category", rcvMsg.value("category"));
+                        int cate_num = Int32.Parse(rcvMsg.value("cate_num"));
+                        msg.add("cate_num", rcvMsg.value("cate_num"));
+                        for (int i = 0; i < cate_num; ++i)
+                        {
+                            msg.add("cate" + i.ToString(), rcvMsg.value("cate" + i.ToString()));
+
+                        }
                         msg.add("namesp", rcvMsg.value("namesp"));
                         msg.add("file", rcvMsg.value("filename"));
                         msg.add("filename", rcvMsg.value("filename"));
@@ -546,12 +552,20 @@ namespace WpfApp1
                     testbox.Items.Insert(0, "recevie " + filename + " meatadata msg");
                     ListBox MetaData_List = (rcvMsg.value("source") != "FileList_checkout") ? MetaData_browse_List : MetaData_checkout_List;
                     MetaData_List.Items.Clear();
+
+
                     int dependnum = Int32.Parse(rcvMsg.value("dependnum"));
                     for (int i = 0; i < dependnum; ++i)
                     {
                         MetaData_List.Items.Insert(0, "  " + rcvMsg.value("depend" + i.ToString()));
                     }
                     if (dependnum != 0) MetaData_List.Items.Insert(0, "Dependencies: ");
+                    int cate_num = Int32.Parse(rcvMsg.value("cate_num"));
+                    for (int i = 0; i < cate_num; ++i)
+                    {
+                        MetaData_List.Items.Insert(0, "  " + rcvMsg.value("cate" + i.ToString()));
+                    }
+                    if (cate_num != 0) MetaData_List.Items.Insert(0, "Categories: ");
                     MetaData_List.Items.Insert(0, "status: " + rcvMsg.value("status"));
                     MetaData_List.Items.Insert(0, "Version: " + rcvMsg.value("version"));
                     MetaData_List.Items.Insert(0, "Description: " + rcvMsg.value("description"));
@@ -744,6 +758,12 @@ namespace WpfApp1
             msg.add("command", "checkAuthor");
             msg.add("author", author_text.Text);
             msg.add("desciption", descrip_text.Text);
+            string[] cates = cate_text.Text.Split(',');
+            msg.add("cate_num", cates.Length.ToString());
+            for (int i = 0; i < cates.Length; ++i)
+            {
+                msg.add("cate" + i.ToString(), cates[i]);
+            }
             msg.add("category", cate_text.Text);
             msg.add("namesp", namesp_text.Text);
             msg.add("filename", System.IO.Path.GetFileName(fileselect.Text));
@@ -789,18 +809,22 @@ namespace WpfApp1
 
         private void Button_Click_Checkout(object sender, RoutedEventArgs e)
         {
-            checkout_Status.Items.Clear();
-            CsEndPoint serverEndPoint = new CsEndPoint();
-            serverEndPoint.machineAddress = serverAddr;
-            serverEndPoint.port = serverPort;
-            CsMessage msg = new CsMessage();
-            msg.add("to", CsEndPoint.toString(serverEndPoint));
-            msg.add("from", CsEndPoint.toString(endPoint_));
-            msg.add("command", "checkOut");
-            msg.add("with_depend", with_depend_check.IsChecked.ToString());
-            msg.add("filename", FileList_checkout.SelectedItem.ToString());
-            msg.add("filepath", "../" + PathTextBlock_checkout.Text);
-            translater.postMessage(msg);
+            if (FileList_checkout.SelectedItem != null)
+            {
+                checkout_Status.Items.Clear();
+                CsEndPoint serverEndPoint = new CsEndPoint();
+                serverEndPoint.machineAddress = serverAddr;
+                serverEndPoint.port = serverPort;
+                CsMessage msg = new CsMessage();
+                msg.add("to", CsEndPoint.toString(serverEndPoint));
+                msg.add("from", CsEndPoint.toString(endPoint_));
+                msg.add("command", "checkOut");
+                msg.add("with_depend", with_depend_check.IsChecked.ToString());
+                msg.add("filename", FileList_checkout.SelectedItem.ToString());
+                msg.add("filepath", "../" + PathTextBlock_checkout.Text);
+                translater.postMessage(msg);
+            }
+
         }
 
         //----< respond to mouse click on browse button >----------------
@@ -1024,17 +1048,20 @@ namespace WpfApp1
 
         private void Close_file_btn(object sender, RoutedEventArgs e)
         {
-            CsEndPoint serverEndPoint = new CsEndPoint();
-            serverAddr = machineAddressText.Text;
-            serverPort = Int32.Parse(portText.Text);
-            serverEndPoint.machineAddress = serverAddr;
-            serverEndPoint.port = serverPort;
-            CsMessage msg = new CsMessage();
-            msg.add("to", CsEndPoint.toString(serverEndPoint));
-            msg.add("from", CsEndPoint.toString(endPoint_));
-            msg.add("command", "closeFile");
-            msg.add("filename", FileList_browse.SelectedItem.ToString());
-            translater.postMessage(msg);
+            if (FileList_browse.SelectedItem != null)
+            {
+                CsEndPoint serverEndPoint = new CsEndPoint();
+                serverAddr = machineAddressText.Text;
+                serverPort = Int32.Parse(portText.Text);
+                serverEndPoint.machineAddress = serverAddr;
+                serverEndPoint.port = serverPort;
+                CsMessage msg = new CsMessage();
+                msg.add("to", CsEndPoint.toString(serverEndPoint));
+                msg.add("from", CsEndPoint.toString(endPoint_));
+                msg.add("command", "closeFile");
+                msg.add("filename", FileList_browse.SelectedItem.ToString());
+                translater.postMessage(msg);
+            }
         }
 
         private void mock_checkin(string filepath, string author, string descrip, string cate, string namesp)

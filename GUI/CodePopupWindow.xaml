@@ -7,11 +7,6 @@
         mc:Ignorable="d"
         Title="CodePopupWindow" Height="450" Width="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <TextBox Grid.Row="0" Text="Meta data here" Name="codeLabel" TextAlignment="Center"></TextBox>
         <FlowDocumentScrollViewer Grid.Row="1" BorderThickness="1">
             <FlowDocument x:Name="codeView"/>
         </FlowDocumentScrollViewer>
