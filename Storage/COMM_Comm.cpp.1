@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // Comm.h - message-passing communication facility                 //
-// ver 2.2                                                         //
+// ver 2.0                                                         //
 // Jim Fawcett, CSE687-OnLine Object Oriented Design, Fall 2017    //
 /////////////////////////////////////////////////////////////////////
 
@@ -76,12 +76,7 @@ void Sender::start()
     while (true)
     {
       Message msg = sndQ.deQ();
-      if (msg.containsKey("verbose"))
-      {
-        //::Beep(1000, 100);
-        //::Beep(1000, 100);
-        //::Beep(1000, 100);
-      }
+
       if (msg.command() == "quit")
       {
         StaticLogger<1>::write("\n  -- send thread shutting down");

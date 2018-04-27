@@ -60,6 +60,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
 using MsgPassingCommunication;
+using System.Threading.Tasks;
 
 namespace WpfApp1
 {
@@ -633,10 +634,7 @@ namespace WpfApp1
             addPath();
 
             connectbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-            mock_checkin("../DemoFiles/Comm.cpp", "Cheng", "A comm cpp file", "communication,utility", "COMM", "");
-            mock_checkin("../DemoFiles/Comm.h", "Cheng", "A comm header file", "communication,utility", "COMM", "");
-            mock_checkin("../DemoFiles/Sockets.cpp", "Cheng", "Package Socket cpp file", "socket,communication", "SOCKET", "/Socket");
-            mock_checkin("../DemoFiles/Sockets.h", "Cheng", "Package Socket h file", "socket,communication", "SOCKET", "/Socket");
+            test();
         }
         //----< strip off name of first part of path >---------------------
 
@@ -943,6 +941,7 @@ namespace WpfApp1
 
         private void Button_Click_ConfirmDepend(object sender, RoutedEventArgs e)
         {
+            if (ParentFile.Text == "") return;
             CsEndPoint serverEndPoint = new CsEndPoint();
             serverAddr = machineAddressText.Text;
             serverPort = Int32.Parse(portText.Text);
@@ -1058,7 +1057,12 @@ namespace WpfApp1
             namesp_text.Text = namesp;
             subdir_text.Text = subdir;
             checkinbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-            Thread.Sleep(500);
+        }
+
+        private void test()
+        {
+            test1();
+            test2();
         }
 
         //----< Test function for requirement #1 >----------------
@@ -1073,7 +1077,7 @@ namespace WpfApp1
 
         //----< Test function for requirement #2a >----------------
 
-        private void test2()
+        private async void test2()
         {
             Console.Write("\n Demonstrating Requirement #2 \n");
             Console.Write("\n ============================== \n");
@@ -1081,53 +1085,106 @@ namespace WpfApp1
             Console.Write("  A window will pop up and show the file content. \n");
 
             test2a(); // for checkin
-            //test2b(); // for add dependencies
-            ////test2c(); // for checkout
-            ////test2d(); // for browse
+            await Task.Delay(5000);
+            test2b(); // for add dependencies
+            await Task.Delay(2000);
+            test2c(); // for checkout
+            test2d(); // for browse
             ////test2e(); // for query
 
 
             Console.Write("  Requirement #2 passed. \n");
         }
 
-        private void test2a()
+        private async void test2a()
         {
+            tabControl.SelectedIndex = 2;
             Console.Write("  Testing check in. \n");
             mock_checkin("../DemoFiles/Comm.cpp", "Cheng", "A comm cpp file", "communication,utility", "COMM", "");
+            await Task.Delay(500);
             mock_checkin("../DemoFiles/Comm.h", "Cheng", "A comm header file", "communication,utility", "COMM", "");
+            await Task.Delay(500);
             mock_checkin("../DemoFiles/Sockets.cpp", "Cheng", "Package Socket cpp file", "socket,communication", "SOCKET", "/Socket");
+            await Task.Delay(500);
             mock_checkin("../DemoFiles/Sockets.h", "Cheng", "Package Socket h file", "socket,communication", "SOCKET", "/Socket");
         }
 
         private void test2b()
         {
+            tabControl.SelectedIndex = 2;
+            checkin_tab.SelectedIndex = 1;
             Console.Write("  Testing add dependencies. \n");
             // set some file as parent
+            FileList_checkin.SelectedIndex = 0;
+            set_parent_btn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            Thread.Sleep(200);
             // add to the depend list
+            FileList_checkin.SelectedIndex = 1;
+            adddependbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            //FileList_checkin.SelectedIndex = 2;
+            //adddependbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             // confirm
-            // delete
-            // comfirm
+            confirmdependbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            //// delete
+            //DependList.SelectedIndex = 0;
+            //deldependbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            //// comfirm
+            //confirmdependbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         }
 
         private void test2c()
         {
+            tabControl.SelectedIndex = 3;
             Console.Write("  Testing checkout. \n");
             // checkout the single file
+            FileList_checkout.SelectedIndex = 1;
+            desselect.Text = "../checkoutFiles";
+            checkoutbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             // checkout file with dependencies
+            FileList_checkout.SelectedIndex = 0;
+            checkoutbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         }
 
-        private void test2d()
+        private async void test2d()
         {
+            tabControl.SelectedIndex = 4;
             Console.Write("  Testing browse. \n");
             // view metadata
+            FileList_browse.SelectedIndex = 0;
+            await Task.Delay(2000);
+            FileList_browse.SelectedIndex = 1;
+            await Task.Delay(1000);
             // popup window
+            MouseButtonEventArgs e = new MouseButtonEventArgs(Mouse.PrimaryDevice, 0, MouseButton.Left);
+            e.RoutedEvent = Control.MouseDoubleClickEvent;
+            e.Source = FileList_browse;
+            FileList_browse.SelectedIndex = 0;
+            FileList_browse.RaiseEvent(e);
         }
 
         private void test2e()
         {
             Console.Write("  Testing query. \n");
             // and query
+            condiNameSele.Text = "Name";
+            condiMatchSele.Text = "includes";
+            Condtion_text.Text = "o";
+            add_condi_btn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            condiNameSele.Text = "Category";
+            condiMatchSele.Text = "includes";
+            Condtion_text.Text = "utility";
+            querybtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             // or query
+            condiNameSele.Text = "Name";
+            condiMatchSele.Text = "is exact";
+            Condtion_text.Text = "Sockets.cpp";
+            add_condi_btn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            condiNameSele.Text = "Namespace";
+            condiMatchSele.Text = "is exact";
+            Condtion_text.Text = "COMM";
+            add_condi_btn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            orquery.IsChecked = true;
+            querybtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         }
 
         //----< Test function for requirement #9 >----------------
@@ -1162,6 +1219,14 @@ namespace WpfApp1
             Console.Write("\n ============================== \n");
             Console.Write("  This test will show a message-passing communication system  \n");
             
+        }
+
+        private void deletecondibtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (Condtion_List.SelectedItem != null)
+            {
+                Condtion_List.Items.Remove(Condtion_List.SelectedItem);
+            }
         }
     }
 }

@@ -91,6 +91,10 @@ namespace NoSqlDb
     T& payLoad() { return payLoad_; }
     T payLoad() const { return payLoad_; }
 	DbElement& payLoad(const T& payLoad) { payLoad_ = payLoad; return *this; }
+	bool hasDepend(const std::string& depend)
+	{
+		return std::find(children().begin(), children().end(), depend) != children().end();
+	}
 
   private:
     std::string name_;
