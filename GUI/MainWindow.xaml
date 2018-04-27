@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="Project #4 Remote Repository" Height="600" Width="525" Padding="20" FontFamily="tahoma" Background="#ccc" Loaded="Window_Loaded">
+        Title="Project #4 Remote Repository" Height="750" Width="525" Padding="20" FontFamily="tahoma" Background="#ccc" Loaded="Window_Loaded">
     <!-- 
     ///////////////////////////////////////////////////////////////////////
     // MainWindow.xaml - GUI for Project3HelpWPF                         //
@@ -16,6 +16,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
         <TabControl Grid.Row="0" Name="tabControl">
@@ -124,10 +125,14 @@
                                             </DockPanel>
                                         </Grid>
                                         <Grid Grid.Row="2" Margin="0 5">
-                                            <DockPanel>
-                                                <Label Grid.Column="0" Content="Category"></Label>
-                                                <TextBox Name="cate_text" Grid.Column="1" TextChanged="Back_white"></TextBox>
-                                            </DockPanel>
+                                            <StackPanel>
+                                                <DockPanel>
+                                                    <Label Grid.Column="0" Content="Category"></Label>
+                                                    <TextBox Name="cate_text" Grid.Column="1" TextChanged="Back_white"></TextBox>
+                                                </DockPanel>
+                                                <Label>You can add one or more category, sperate them by ','.</Label>
+                                            </StackPanel>
+
                                         </Grid>
                                         <Grid Grid.Row="3" Margin="0 5">
                                             <DockPanel>
@@ -145,7 +150,7 @@
                                             </StackPanel>
                                         </Grid>
                                     </Grid>
-                                    <Button Grid.Row="2" Name="checkinbtn" Content="Check-In" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click_Checkin" Margin="144,66.5,136,88" Width="208" Height="18"></Button>
+                                    <Button Grid.Row="2" Name="checkinbtn" Content="Check-In" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click_Checkin"></Button>
                                 </Grid>
 
                             </Grid>
@@ -421,7 +426,7 @@
                                     <ComboBoxItem>includes</ComboBoxItem>
                                     <ComboBoxItem>is exact</ComboBoxItem>
                                 </ComboBox>
-                                <TextBox Name="Condtion_text"  Margin="10,0,10,0.5" Width="257"></TextBox>
+                                <TextBox Name="Condtion_text"  Margin="10,0,10,0.5" Width="235"></TextBox>
                                 <Button Name="add_condi_btn" Content="Add" HorizontalAlignment="Right" Margin="0,0,0,0.5" Width="52" Click="Button_Click_AddCondi"></Button>
                             </DockPanel>
                         </Grid>
@@ -451,6 +456,10 @@
         <StatusBar Grid.Row="1">
             <TextBlock Name="statusBarText" Text="This is a status bar"/>
         </StatusBar>
+        <StackPanel  Grid.Row="2">
+            <Label>The Part Below is Just for Demo. Should be deleted in real application.</Label>
+            <ListBox Name="Demo_list" Height="126"></ListBox>
+        </StackPanel>
     </Grid>
 
 

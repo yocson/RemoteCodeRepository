@@ -60,7 +60,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
 using MsgPassingCommunication;
-using System.Threading.Tasks;
 
 namespace WpfApp1
 {
@@ -818,6 +817,7 @@ namespace WpfApp1
 
         private void Button_Click_Query(object sender, RoutedEventArgs e)
         {
+            queryRes_List.Items.Clear();
             CsEndPoint serverEndPoint = new CsEndPoint();
             serverEndPoint.machineAddress = serverAddr;
             serverEndPoint.port = serverPort;
@@ -1065,12 +1065,18 @@ namespace WpfApp1
             test2();
         }
 
+        private void printTestLine(string info)
+        {
+            Console.Write("  " + info + " \n");
+            Demo_list.Items.Insert(0, info);
+        }
+
         //----< Test function for requirement #1 >----------------
 
         private void test1()
         {
             Console.Write("\n Demonstrating Requirement #1 \n");
-            Console.Write("\n ============================== \n");
+            Console.Write(" ============================== \n");
             Console.Write("  This project use Visual Studio 2017 and the standard C++ libraries. Also use C#, the .Net Windows Presentation Foundation framework, and C++/CLI for the graphical part of each Client. \n");
             Console.Write("  Requirement #1 passed! \n");
         }
@@ -1080,18 +1086,19 @@ namespace WpfApp1
         private async void test2()
         {
             Console.Write("\n Demonstrating Requirement #2 \n");
-            Console.Write("\n ============================== \n");
+            Console.Write(" ============================== \n");
             Console.Write("  This test will show the functionalities of the database. \n");
             Console.Write("  A window will pop up and show the file content. \n");
 
             test2a(); // for checkin
-            await Task.Delay(5000);
+            await Task.Delay(4000);
             test2b(); // for add dependencies
-            await Task.Delay(2000);
+            await Task.Delay(3000);
             test2c(); // for checkout
+            await Task.Delay(4000);
             test2d(); // for browse
-            ////test2e(); // for query
-
+            await Task.Delay(5000);
+            test2e(); // for query
 
             Console.Write("  Requirement #2 passed. \n");
         }
@@ -1099,31 +1106,41 @@ namespace WpfApp1
         private async void test2a()
         {
             tabControl.SelectedIndex = 2;
-            Console.Write("  Testing check in. \n");
+            printTestLine("* Testing check in......");
+            Console.Write("  ============================== \n");
+            printTestLine("Check in file comm.cpp");
             mock_checkin("../DemoFiles/Comm.cpp", "Cheng", "A comm cpp file", "communication,utility", "COMM", "");
-            await Task.Delay(500);
+            await Task.Delay(1000);
+            printTestLine("Check in file comm.h");
             mock_checkin("../DemoFiles/Comm.h", "Cheng", "A comm header file", "communication,utility", "COMM", "");
-            await Task.Delay(500);
+            await Task.Delay(1000);
+            printTestLine("Check in file Sockets.cpp");
             mock_checkin("../DemoFiles/Sockets.cpp", "Cheng", "Package Socket cpp file", "socket,communication", "SOCKET", "/Socket");
-            await Task.Delay(500);
+            await Task.Delay(1000);
+            printTestLine("Check in file Sockets.h");
             mock_checkin("../DemoFiles/Sockets.h", "Cheng", "Package Socket h file", "socket,communication", "SOCKET", "/Socket");
         }
 
-        private void test2b()
+        private async void test2b()
         {
             tabControl.SelectedIndex = 2;
             checkin_tab.SelectedIndex = 1;
-            Console.Write("  Testing add dependencies. \n");
+            printTestLine("* Testing adding dependencies......");
+            Console.Write("  ===================================== \n");
             // set some file as parent
+            printTestLine("Set the first file as parent file.");
             FileList_checkin.SelectedIndex = 0;
             set_parent_btn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-            Thread.Sleep(200);
+            await Task.Delay(1000);
             // add to the depend list
+            printTestLine("Add the second file to the dependency list");
             FileList_checkin.SelectedIndex = 1;
             adddependbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             //FileList_checkin.SelectedIndex = 2;
             //adddependbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-            // confirm
+            //confirm
+            await Task.Delay(1000);
+            printTestLine("Comfirm the dependency list.");
             confirmdependbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             //// delete
             //DependList.SelectedIndex = 0;
@@ -1132,29 +1149,39 @@ namespace WpfApp1
             //confirmdependbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         }
 
-        private void test2c()
+        private async void test2c()
         {
             tabControl.SelectedIndex = 3;
-            Console.Write("  Testing checkout. \n");
+            printTestLine("* Testing checkout......");
+            Console.Write("  ===================================== \n");
             // checkout the single file
             FileList_checkout.SelectedIndex = 1;
             desselect.Text = "../checkoutFiles";
+            printTestLine("Checkout the first file.");
+            await Task.Delay(1000);
             checkoutbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             // checkout file with dependencies
+            printTestLine("Checkout the second file with dependency.");
             FileList_checkout.SelectedIndex = 0;
+            with_depend_check.IsChecked = true;
+            await Task.Delay(1000);
             checkoutbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         }
 
         private async void test2d()
         {
             tabControl.SelectedIndex = 4;
-            Console.Write("  Testing browse. \n");
+            printTestLine("* Testing browse......");
+            Console.Write("  ===================================== \n");
             // view metadata
+            printTestLine("Get information of the first file.");
             FileList_browse.SelectedIndex = 0;
             await Task.Delay(2000);
+            printTestLine("Switch to the second file, Get information of the second file.");
             FileList_browse.SelectedIndex = 1;
             await Task.Delay(1000);
             // popup window
+            printTestLine("Pop up code of the first file.");
             MouseButtonEventArgs e = new MouseButtonEventArgs(Mouse.PrimaryDevice, 0, MouseButton.Left);
             e.RoutedEvent = Control.MouseDoubleClickEvent;
             e.Source = FileList_browse;
@@ -1162,28 +1189,49 @@ namespace WpfApp1
             FileList_browse.RaiseEvent(e);
         }
 
-        private void test2e()
+        private async void test2e()
         {
-            Console.Write("  Testing query. \n");
+            tabControl.SelectedIndex = 5;
+            printTestLine("* Testing query......");
+            Console.Write("  ===================================== \n");
             // and query
             condiNameSele.Text = "Name";
             condiMatchSele.Text = "includes";
             Condtion_text.Text = "o";
+            printTestLine("Add query condition: name includes 'o'");
             add_condi_btn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            await Task.Delay(2000);
             condiNameSele.Text = "Category";
-            condiMatchSele.Text = "includes";
+            condiMatchSele.Text = "is exact";
             Condtion_text.Text = "utility";
+            printTestLine("Add query condition: Category is exact 'utility'");
+            add_condi_btn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            await Task.Delay(2000);
+            printTestLine("Apply 'and query' on the conditions.");
             querybtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            await Task.Delay(2000);
+            printTestLine("Delete currents conditions.");
+            Condtion_List.SelectedIndex = 0;
+            deletecondibtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            await Task.Delay(2000);
+            Condtion_List.SelectedIndex = 0;
+            deletecondibtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             // or query
             condiNameSele.Text = "Name";
             condiMatchSele.Text = "is exact";
             Condtion_text.Text = "Sockets.cpp";
+            printTestLine("Add query condition: Name is exact 'Sockets.cpp'");
+            await Task.Delay(1000);
             add_condi_btn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             condiNameSele.Text = "Namespace";
             condiMatchSele.Text = "is exact";
             Condtion_text.Text = "COMM";
+            printTestLine("Add query condition: Namespace is exact 'COMM'");
+            await Task.Delay(1000);
             add_condi_btn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             orquery.IsChecked = true;
+            printTestLine("Apply 'or query' on the conditions.");
+            await Task.Delay(1000);
             querybtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         }
 
@@ -1218,7 +1266,31 @@ namespace WpfApp1
             Console.Write("\n Demonstrating Requirement #4 \n");
             Console.Write("\n ============================== \n");
             Console.Write("  This test will show a message-passing communication system  \n");
-            
+            Console.Write("  Please refer to the massages in the server console and GUI console.  \n");
+            Console.Write("  The massges demostrates the communication between two ends.  \n");
+
+        }
+
+        //----< Test function for requirement #5 >----------------
+
+        private void test5()
+        {
+            Console.Write("\n Demonstrating Requirement #5 \n");
+            Console.Write("\n ============================== \n");
+            Console.Write("  This test will show providing support for passing HTTP style messages using asynchronous one-way messaging  \n");
+            Console.Write("  This test will send a showdb() message to server which is a one-way message.  \n");
+            Console.Write("  DB content will be printed on the server side.  \n");
+        }
+
+        //----< Test function for requirement #6 >----------------
+
+        private void test6()
+        {
+            Console.Write("\n Demonstrating Requirement #6 \n");
+            Console.Write("\n ============================== \n");
+            Console.Write("  This test will show providing support for passing HTTP style messages using asynchronous one-way messaging  \n");
+            Console.Write("  This test will send a showdb() message to server which is a one-way message.  \n");
+            Console.Write("  DB content will be printed on the server side.  \n");
         }
 
         private void deletecondibtn_Click(object sender, RoutedEventArgs e)

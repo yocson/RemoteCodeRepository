@@ -1,7 +1,7 @@
 #pragma once
 /////////////////////////////////////////////////////////////////////
 // Comm.h - message-passing communication facility                 //
-// ver 2.2                                                         //
+// ver 2.0                                                         //
 // Jim Fawcett, CSE687-OnLine Object Oriented Design, Fall 2017    //
 /////////////////////////////////////////////////////////////////////
 /*
@@ -24,12 +24,6 @@
 *
 *  Maintenance History:
 *  --------------------
-*  ver 2.2 : 27 Mar 2018
-*  - added interface IComm and object factory (static method in IComm)
-*  - Comm now implements the IComm interface
-*  - No change to code other that derive from interface and implement its create method
-*  ver 2.1 : 25 Mar 2018
-*  - added declaration of SocketSystem in Comm class
 *  ver 2.0 : 07 Oct 2017
 *  - added sendFile(...) as private member of Sender
 *  - added receiveFile() as member of ClientHandler
@@ -40,7 +34,6 @@
 #include "../Message/Message.h"
 #include "../Cpp11-BlockingQueue/Cpp11-BlockingQueue.h"
 #include "../Sockets/Sockets.h"
-#include "IComm.h"
 #include <string>
 #include <thread>
 
@@ -87,7 +80,7 @@ namespace MsgPassingCommunication
     std::string sndrName;
   };
 
-  class Comm : public IComm
+  class Comm
   {
   public:
     Comm(EndPoint ep, const std::string& name = "Comm");
@@ -100,14 +93,5 @@ namespace MsgPassingCommunication
     Sender sndr;
     Receiver rcvr;
     std::string commName;
-    Sockets::SocketSystem socksys_;
   };
-
-  inline IComm* IComm::create(const std::string& machineAddress, size_t port)
-  {
-    std::cout << "\n  creating an instance of Comm on the native heap";
-    EndPoint ep(machineAddress, port);
-    IComm* pComm = new Comm(ep, "created Comm");
-    return pComm;
-  }
 }
