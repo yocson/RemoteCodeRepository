@@ -675,9 +675,7 @@ namespace WpfApp1
 
         private void DirList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            // build path for selected dir
             ListBox dir = sender as ListBox;
-            /*Console.Write(dir.Name);*/
 
             pathStack_ = Select_List(dir.Name);
 
@@ -921,12 +919,7 @@ namespace WpfApp1
             // Create OpenFileDialog 
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.DefaultExt = ".*";
-            //dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
-
-            // Display OpenFileDialog by calling ShowDialog method 
             Nullable<bool> result = dlg.ShowDialog();
-
-            // Get the selected file name and display in a TextBox 
             if (result == true)
             {
                 // Open document 
@@ -1153,6 +1146,7 @@ namespace WpfApp1
             await Task.Delay(8000);
 
             Console.Write("  Requirement #2 passed. \n");
+            printTestLine("Please look at the console for other requirements.");
         }
         //----< Test function for requirement #2a, checkin >----------------
 
