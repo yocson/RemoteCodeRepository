@@ -82,6 +82,9 @@ void Sender::start()
 				StaticLogger<1>::write("\n  -- send thread shutting down");
 				return;
 			}
+			if (msg.command() == "showDb") {
+				continue;
+			}
 			StaticLogger<1>::write("\n  -- " + sndrName + " send thread sending " + msg.name());
 			std::string msgStr = msg.toString();
 
@@ -152,6 +155,7 @@ bool Sender::sendFile(Message msg)
 	{
 		sendFile.read(rwBuffer, BlockSize);
 		size_t blockSize = (size_t)sendFile.gcount();
+		std::cout << "\n sending block with size: " + std::to_string(blockSize);
 		msg.contentLength(blockSize);
 		std::string msgString = msg.toString();
 		connecter.sendString(msgString);

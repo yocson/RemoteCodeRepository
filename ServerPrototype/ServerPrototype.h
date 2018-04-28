@@ -80,6 +80,7 @@ namespace Repository
     void processMessages();
     void postMessage(MsgPassingCommunication::Message msg);
     MsgPassingCommunication::Message getMessage();
+	static void showDb();
 	static std::vector<Key> checkOut(const std::string& namesp, const std::string& filename, bool withdepend, int versionnum);
 	static bool closeFile(const std::string& namesp, const std::string& filename);
 	static FileElem& getElem(const Key& key);
@@ -92,6 +93,8 @@ namespace Repository
     static Files getFiles(const SearchPath& path = storageRoot);
 	static std::vector<Key> andQuery(Msg msg);
 	static std::vector<Key> orQuery(Msg msg);
+	static std::vector<Key> getFileWithoutParents();
+
   private:
 	MsgPassingCommunication::Comm comm_;
 	MsgDispatcher dispatcher_;

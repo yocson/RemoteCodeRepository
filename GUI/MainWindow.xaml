@@ -385,7 +385,7 @@
                                     <RowDefinition Height="*"></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <Grid Grid.Row="2">
-                                    <Button Content="Close File" Width="100" Click="Button_Click_CloseFile"/>
+                                    <Button Name="closefilebtn" Content="Close File" Width="100" Click="Button_Click_CloseFile"/>
                                 </Grid>
                                 <Grid Grid.Row="0" Margin="10 10 10 10">
                                     <StackPanel>
@@ -440,13 +440,14 @@
                                 <!--<CheckBox Content="Query on the result" Margin="0 5 10 0"></CheckBox>-->
                                 <RadioButton Name="andquery" GroupName="Query" Content="Add Query" IsChecked="True"/>
                                 <RadioButton Name="orquery" GroupName="Query" Content="Or Query" />
+                                <CheckBox Name="noparent">File with no parent</CheckBox>
                                 <Button Name="querybtn" Content="Query" Margin="10 5 10 -10" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click_Query"></Button>
                             </StackPanel>
                         </Grid>
                         <Grid Grid.Row="2" Margin="10 0 10 10">
                             <StackPanel>
                                 <Label FontWeight="Bold" Content="Query result:"></Label>
-                                <ListBox Name="queryRes_List" Height="200"></ListBox>
+                                <ListBox Name="queryRes_List" Height="200" MouseDoubleClick="QueryList_MouseDoubleClick"></ListBox>
                             </StackPanel>
                         </Grid>
                     </Grid>
