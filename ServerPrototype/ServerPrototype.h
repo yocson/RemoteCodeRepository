@@ -1,7 +1,7 @@
 #pragma once
 ///////////////////////////////////////////////////////////////////////
 // ServerPrototype.h - Console App that processes incoming messages  //
-// ver 1.1                                                           //
+// ver 1.8                                                           //
 // Platform:    Macbook Pro 15, Windows 10 on Parallel Virtual Machine//
 // Application: Project3, RemoteRepositoryPrototypes,                //
 //				CSE687, Object Oriented Design, Spring 2018          //
@@ -33,6 +33,20 @@
 *
 *  Maintenance History:
 * ----------------------
+* ver 1.8 : 24 Apr 2018
+* - add showdb
+* ver 1.7 : 23 Apr 2018
+* - fix bugs
+* ver 1.6 : 22 Apr 2018
+* - Add functionality for query
+* ver 1.5 : 21 Apr 2018
+* - Add functionality for browse
+* ver 1.4 : 20 Apr 2018
+* - Add functionality for checkin, checkout
+* ver 1.3 : 15 Apr 2018
+* - Add process functions
+* ver 1.2 : 9 Apr 2018
+* - Add process functions
 *  ver 1.1 : 4/3/2018
 *  - add process functions
 *  ver 1.0 : 3/27/2018

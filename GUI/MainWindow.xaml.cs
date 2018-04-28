@@ -1219,11 +1219,13 @@ namespace WpfApp1
             FileList_checkout.SelectedIndex = 1;
             desselect.Text = "../checkoutFiles";
             printTestLine("Checkout the second file.");
+            printTestLine("Files are checkout to root/GUI/bin/x86/checkOutFiles.");
             await Task.Delay(2000);
             checkoutbtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
 
             // checkout file with dependencies
             printTestLine("Checkout the first file with dependency.");
+            printTestLine("Files are checkout to root/GUI/bin/x86/checkOutFiles.");
             await Task.Delay(1000);
             FileList_checkout.SelectedIndex = 0;
             with_depend_check.IsChecked = true;
