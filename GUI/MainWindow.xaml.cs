@@ -31,6 +31,8 @@
  * 
  * Maintenance History:
  * --------------------
+ * ver 1.9 : 30 Apr 2018
+ * - fixed minor bug
  * ver 1.8 : 24 Apr 2018
  * - add automated test
  * ver 1.7 : 23 Apr 2018
