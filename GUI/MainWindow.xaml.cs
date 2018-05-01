@@ -18,7 +18,7 @@
  * - You can navigate into subdirectories by double-clicking on subdirectory
  *   or the parent directory, indicated by the name "..".
  * It provides several tabs, such as checkin, checkout, browse...
- * With the btn on the page, you can use the functionality of server. 
+ * With the btn on the page, you can use the functionality of server.
  *   
  * Required Files:
  * ---------------
@@ -913,7 +913,6 @@ namespace WpfApp1
             translater.postMessage(msg);
         }
 
-
         //----< respond to mouse click on selectfile button >----------------
 
         private void Button_Click_SelectFile(object sender, RoutedEventArgs e)
@@ -1386,8 +1385,8 @@ namespace WpfApp1
         {
             Console.Write("\n Demonstrating Requirement #6 \n");
             Console.Write(" ============================== \n");
-            Console.Write("  This test will show support sending and receiving blocks of bytes6 to support file transfer.  \n");
-            Console.Write("  Please refer to the console, the file information will be printed when trasferring a file.  \n");
+            Console.Write("  This test will show support sending and receiving blocks of bytes to support file transfer.  \n");
+            Console.Write("  Please refer to the console, the block information will be printed when traNsferring a file.  \n");
             Console.Write("  Requirement #6 passed. \n");
 
         }

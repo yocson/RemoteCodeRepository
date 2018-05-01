@@ -18,6 +18,9 @@
 *
 *  Message handling runs on a child thread, so the Server main thread is free to do
 *  any necessary background processing like checkin, checkout, browse.
+*  
+*  There is a repositoryCore inside the Server as a static member. The functions used
+*  to manipulate the database are all static functions.
 *
 *  Required Files:
 * -----------------
