@@ -1147,7 +1147,6 @@ namespace WpfApp1
             await Task.Delay(8000);
 
             Console.Write("  Requirement #2 passed. \n");
-            printTestLine("Please look at the console for other requirements.");
         }
         //----< Test function for requirement #2a, checkin >----------------
 
@@ -1263,16 +1262,24 @@ namespace WpfApp1
             tabControl.SelectedIndex = 5;
             printTestLine("* Testing query......");
             Console.Write("  ===================================== \n");
-            // and query
-            condiNameSele.Text = "Name";
-            condiMatchSele.Text = "includes";
-            Condtion_text.Text = "o";
+            add_query_demo();
+            await Task.Delay(9000);
+            or_query_demo();
+            await Task.Delay(15000);
+            // popup window
+            printTestLine("Pop up code of the first file.");
+            pop_up(0);
+            printTestLine("Please look at the console for other requirements.");
+        }
+        //----< add query in demostration >----------------
+
+        private async void add_query_demo()
+        {
+            setCondition("Name", "includes", "o");
             printTestLine("Add query condition: name includes 'o'");
             add_condi_btn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             await Task.Delay(2000);
-            condiNameSele.Text = "Category";
-            condiMatchSele.Text = "is exact";
-            Condtion_text.Text = "utility";
+            setCondition("Category", "is exact", "utility");
             printTestLine("Add query condition: Category is exact 'utility'");
             add_condi_btn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             await Task.Delay(2000);
@@ -1285,16 +1292,16 @@ namespace WpfApp1
             await Task.Delay(2000);
             Condtion_List.SelectedIndex = 0;
             deletecondibtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-            // or query
-            condiNameSele.Text = "Name";
-            condiMatchSele.Text = "is exact";
-            Condtion_text.Text = "Sockets.cpp";
+        }
+        //----< or query in demostration >----------------
+
+        private async void or_query_demo()
+        {
+            setCondition("Name", "is exact", "Sockets.cpp");
             printTestLine("Add query condition: Name is exact 'Sockets.cpp'");
             await Task.Delay(2000);
             add_condi_btn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-            condiNameSele.Text = "Namespace";
-            condiMatchSele.Text = "is exact";
-            Condtion_text.Text = "COMM";
+            setCondition("Namespace", "is exact", "COMM");
             printTestLine("Add query condition: Namespace is exact 'COMM'");
             await Task.Delay(2000);
             add_condi_btn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
@@ -1315,14 +1322,24 @@ namespace WpfApp1
             querybtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             printTestLine("Will get all files except two files as dependencies.");
             await Task.Delay(2000);
-            //// popup window
-            printTestLine("Pop up code of the first file.");
+        }
+        //----< add condtions in query part >----------------
+
+        private void setCondition(string condiNameSele_text, string condiMatchSele_text, string Condtion_text_text)
+        {
+            condiNameSele.Text = condiNameSele_text;
+            condiMatchSele.Text = condiMatchSele_text;
+            Condtion_text.Text = Condtion_text_text;
+        }
+        //----< pop up a window in the query test >----------------
+
+        private void pop_up(int index)
+        {
             MouseButtonEventArgs e = new MouseButtonEventArgs(Mouse.PrimaryDevice, 0, MouseButton.Left);
             e.RoutedEvent = Control.MouseDoubleClickEvent;
             e.Source = queryRes_List;
-            queryRes_List.SelectedIndex = 0;
+            queryRes_List.SelectedIndex = index;
             queryRes_List.RaiseEvent(e);
-
         }
 
         //----< Test function for requirement #3 >----------------
