@@ -1,1 +1,1 @@
-devenv %~dp0\RemoteRepositoryPrototypes.sln /rebuild debug
+devenv %~dp0\RemoteRepository.sln /rebuild debug
